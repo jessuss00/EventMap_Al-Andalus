@@ -15,7 +15,7 @@ create table usuario(
 	nombre varchar(100),
     apellidos varchar(100),
     email varchar(100),
-    contraseña varchar(20) not null,
+    contraseña varchar(255) not null,
     dni char(9),
     edad int,
 	constraint chk_edad check (edad BETWEEN 17 AND 30)
@@ -54,3 +54,8 @@ create table visita(
     constraint fk_visita_evento foreign key(evento) references evento(id),
     constraint fk_visita_usuario foreign key(usuario) references usuario(id)
 );
+
+INSERT INTO usuario (nombre, apellidos, email, contraseña, dni, edad)
+VALUES ('Test', 'User', 'test@test.com', '1234', '12345678Z', 25);
+
+
