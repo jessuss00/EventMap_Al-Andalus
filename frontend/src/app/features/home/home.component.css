@@ -1,0 +1,29 @@
+.home-container {
+  padding: 20px;
+}
+
+.welcome-box {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #e9ecef;
+  border: 1px solid #ccc;
+}
+
+.welcome-box h2 {
+  margin-top: 0;
+}
+
+.map-placeholder {
+  height: 300px;
+  background-color: #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px dashed #999;
+}
+
+.map-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}

@@ -40,7 +40,6 @@ public class JwtFilter extends OncePerRequestFilter {
             }
             
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                // OJO: Aquí 'loadUserByUsername' buscará por EMAIL porque así lo definimos en el servicio
                 UserDetails userDetails = usuarioService.loadUserByUsername(username);
                 if (jwtUtils.validateToken(token, userDetails)) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,

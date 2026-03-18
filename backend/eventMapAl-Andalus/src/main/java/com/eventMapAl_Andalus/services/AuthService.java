@@ -26,7 +26,6 @@ public class AuthService {
     private UsuarioService usuarioService;
     
     public LoginResponse login(LoginRequest request) {
-        // Autenticamos usando el EMAIL (request.getEmail)
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
         
@@ -44,13 +43,11 @@ public class AuthService {
     
     public LoginResponse registrar(RegisterRequest request) {
         if(!request.getPassword1().equals(request.getPassword2())) {
-            throw new RuntimeException("Las contraseñas no coinciden"); // Excepción simple por ahora
+            throw new RuntimeException("Las contraseñas no coinciden"); 
         }
         
-        // Creamos el usuario
         this.usuarioService.create(request);
         
-        // Lo autenticamos automáticamente tras el registro
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword1()));
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
