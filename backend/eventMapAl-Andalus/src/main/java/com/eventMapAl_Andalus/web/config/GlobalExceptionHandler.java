@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.eventMapAl_Andalus.services.exceptions.*; // Importamos todas de golpe
+import com.eventMapAl_Andalus.services.exceptions.*; 
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,6 +28,11 @@ public class GlobalExceptionHandler {
     })
     public ResponseEntity<String> handleBadRequest(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+        
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolation(org.springframework.dao.DataIntegrityViolationException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El email o DNI proporcionado ya se encuentra registrado.");
     }
         
     @ExceptionHandler(Exception.class)

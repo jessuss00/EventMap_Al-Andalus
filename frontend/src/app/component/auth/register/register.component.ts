@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../core/services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -40,7 +40,15 @@ export class RegisterComponent {
       },
       error: (err) => {
         console.error('Registration failed:', err);
-        this.errorMessage = 'No se ha podido registrar el usuario. Comprueba si el email ya existe en el sistema o si los datos son inválidos.';
+        if (err.error && typeof err.error === 'string') {
+          this.errorMessage = err.error;
+        } else if (err.error && err.error.message) {
+          this.errorMessage = err.error.message;
+        } else if (err.status === 500) {
+          this.errorMessage = 'El servidor rechazó el registro. Es probable que el email ya esté en uso.';
+        } else {
+          this.errorMessage = 'No se ha podido registrar el usuario. Comprueba si el email ya existe en el sistema o si los datos son inválidos.';
+        }
       }
     });
   }
