@@ -25,12 +25,15 @@ create table usuario(
 create table evento(
 	id int auto_increment primary key,
     nombre varchar(100),
-    tipo varchar(200) not null,
+    tipo varchar(20) not null,
     descripcion_simple text,
     confirmada boolean,
     municipio int, 
+    imagen varchar(255),
+    constraint chk_tipo_evento check (tipo IN ('Cultural', 'Nocturno', 'Deportivo')),
     constraint fk_evento_municipio foreign key(municipio) references municipio(id)
 );
+    
 
 -- DETALLES SEGÚN EL TIPO DE EVENTO
 create table detalle_evento(
@@ -55,7 +58,25 @@ create table visita(
     constraint fk_visita_usuario foreign key(usuario) references usuario(id)
 );
 
-INSERT INTO usuario (nombre, apellidos, email, contraseña, dni, edad)
-VALUES ('Test', 'User', 'test@test.com', '1234', '12345678Z', 25);
 
 
+INSERT INTO municipio (nombre, provincia) VALUES 
+('Granada', 'Granada'), 
+('Córdoba', 'Córdoba'), 
+('Sevilla', 'Sevilla');
+
+INSERT INTO evento (nombre, tipo, descripcion_simple, confirmada, municipio, imagen) VALUES 
+('Concierto Flamenco Mágico', 'Nocturno', 'Disfruta de una noche inolvidable con el mejor flamenco en el corazón de Andalucía.', true, 1, 'https://conciertos.club/doc/a/2017/a_FMC_Vimaambi.jpg'),
+('Visita Guiada Alhambra', 'Cultural', 'Recorrido completo por la Alhambra, Generalife y palacios nazaríes.', true, 1, 'https://cdn-imgix.headout.com/media/images/b976375b5f1a1d87578c9d9fe12e2c7e-Alhambra%20Tickets.jpg'),
+('Feria de Abril', 'Nocturno', 'Vive la magia de la feria con casetas, rebujito y baile hasta el amanecer.', true, 3, 'https://elflamencoensevilla.com/wp-content/uploads/2023/04/feria-de-sevilla.jpeg'),
+('Ruta de Tapas y Vino', 'Cultural', 'Una ruta exquisita por las mejores tabernas tradicionales de Córdoba.', true, 2, 'https://images.unsplash.com/photo-1544148103-0773bf10d330?auto=format&fit=crop&q=80&w=600'),
+('Maratón Ciudad de Sevilla', 'Deportivo', 'Participa en la carrera legendaria a través de los monumentos históricos.', true, 3, 'https://images.unsplash.com/photo-1552674605-15cff24f362f?auto=format&fit=crop&q=80&w=600');
+
+INSERT INTO detalle_evento (evento, fecha_inicio, fecha_fin, subtipo, descripcion_detallada, localizacion_exacta, entradas) VALUES
+(1, '2026-05-15 21:00:00', '2026-05-15 23:30:00', 'Flamenco', 'Una experiencia inmersiva con cantaores de renombre y un ambiente único.', 'Cuevas del Sacromonte', 'Desde 30€ en taquilla'),
+(2, '2026-06-10 10:00:00', '2026-06-10 14:00:00', 'Visita histórica', 'Un guía oficial te acompañará por los misterios de la fortaleza roja.', 'Acceso Principal Alhambra', '25€ online'),
+(3, '2026-04-20 12:00:00', '2026-04-26 23:59:00', 'Feria', 'Semanas de diversión garantizada, música, comida típica y atracciones.', 'Recinto Ferial Los Remedios', 'Entrada gratuita al recinto'),
+(4, '2026-05-02 13:00:00', '2026-05-02 18:00:00', 'Tapas', 'Degustación de 5 tapas premium con maridaje de vinos locales.', 'Centro histórico de Córdoba', '15€ ticket de ruta'),
+(5, '2026-02-15 08:00:00', '2026-02-15 14:30:00', 'Atletismo', 'Disfruta de 42 km recorriendo las calles más bellas y llanas de Europa.', 'Paseo de las Delicias, Sevilla', 'Participación 75€, público gratis');
+
+select * from usuario;

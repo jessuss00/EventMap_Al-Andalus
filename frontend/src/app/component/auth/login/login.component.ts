@@ -22,6 +22,14 @@ export class LoginComponent {
     this.authService.login(this.credentials).subscribe({
       next: (res) => {
         console.log('Login success:', res);
+        if (res && res.token) {
+          localStorage.setItem('token', res.token);
+        } else if (typeof res === 'string') {
+          // Si el token viene como un texto plano
+          localStorage.setItem('token', res);
+        }
+        // Marcar manualmente la sesión (opcional si es simulado)
+        localStorage.setItem('isLoggedIn', 'true');
         this.router.navigate(['/home']);
       },
       error: (err) => {

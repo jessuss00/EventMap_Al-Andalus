@@ -11,11 +11,8 @@ body {
 }
 
 .content {
-  max-width: 800px;
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 20px;
-  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 h1,

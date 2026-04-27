@@ -20,13 +20,21 @@ public class Evento {
 
     private String nombre;
     
+    public enum TipoEvento {
+        Cultural, Nocturno, Deportivo
+    }
+
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String tipo;
+    private TipoEvento tipo;
 
     @Column(name = "descripcion_simple", columnDefinition = "TEXT")
     private String descripcionSimple;
 
     private boolean confirmada;
+    
+    // Añadimos el campo imagen
+    private String imagen;
 
     @ManyToOne
     @JoinColumn(name = "municipio") 

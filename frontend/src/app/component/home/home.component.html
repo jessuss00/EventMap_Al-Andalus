@@ -1,11 +1,37 @@
 <div class="home-container">
   <div class="welcome-box">
-    <h2>Explora Al-Andalus</h2>
-    <p>Has iniciado sesión correctamente. Aquí se mostrará el mapa interactivo de eventos próximamente.</p>
+    <h2>Descubre Eventos en Al-Andalus</h2>
+    <p>Explora la magia y la cultura de nuestra tierra. Encuentra los mejores eventos disponibles para ti.</p>
   </div>
 
-  <div class="map-placeholder">
-    <p>Cargando mapa interactivo...</p>
-    <small>Versión en desarrollo</small>
+  <div *ngIf="loading" class="loading-state">
+    <p>Cargando eventos increíbles...</p>
+  </div>
+
+  <div *ngIf="!loading && eventos.length === 0" class="empty-state">
+    <p>No hay eventos disponibles en este momento.</p>
+  </div>
+
+  <div class="events-grid" *ngIf="!loading && eventos.length > 0">
+    <div class="event-card" *ngFor="let ev of eventos">
+      <div class="event-image-wrapper">
+        <img [src]="ev.imagen" (error)="ev.imagen = 'https://picsum.photos/800/500?random=' + ev.id" alt="{{ ev.nombre }}">
+        <span class="event-type-badge" [ngClass]="'badge-' + ev.tipo.toLowerCase()">{{ ev.tipo }}</span>
+      </div>
+      <div class="event-info">
+        <h3>{{ ev.nombre }}</h3>
+        
+        <div class="event-location" *ngIf="ev.municipio">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="location-icon">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <span>{{ ev.municipio.nombre }}, {{ ev.municipio.provincia }}</span>
+        </div>
+
+        <p class="event-desc">{{ ev.descripcionSimple }}</p>
+        <button class="btn-details">Ver Información Detallada</button>
+      </div>
+    </div>
   </div>
 </div>

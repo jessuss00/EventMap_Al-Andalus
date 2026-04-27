@@ -18,4 +18,18 @@ export class AuthService {
   register(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/register`, userData);
   }
+
+  isLoggedIn(): boolean {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return !!localStorage.getItem('isLoggedIn') || !!localStorage.getItem('token');
+    }
+    return false;
+  }
+
+  logout(): void {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('isLoggedIn');
+    }
+  }
 }
