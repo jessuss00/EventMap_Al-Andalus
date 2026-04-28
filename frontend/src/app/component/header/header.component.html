@@ -13,11 +13,18 @@
     </ng-container>
 
     <ng-container *ngIf="isLoggedIn()">
-      <div class="user-profile" title="Mi Perfil">
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
+      <div class="user-menu-container">
+        <div class="user-profile" title="Mi Perfil" (click)="toggleDropdown()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        
+        <div class="dropdown-menu" *ngIf="isDropdownOpen">
+          <a class="dropdown-item" (click)="editProfile()">Editar Perfil</a>
+          <a class="dropdown-item logout-item" (click)="logout()">Cerrar Sesión</a>
+        </div>
       </div>
     </ng-container>
   </nav>
