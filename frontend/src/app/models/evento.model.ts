@@ -1,3 +1,13 @@
+export interface DetalleEvento {
+    id: number;
+    fechaInicio: string;
+    fechaFin: string;
+    subtipo: string;
+    descripcionDetallada: string;
+    localizacionExacta: string;
+    entradas: string;
+}
+
 export interface Evento {
     id: number;
     nombre: string;
@@ -10,5 +20,5 @@ export interface Evento {
         nombre: string;
         provincia: string;
     };
-    detalle?: any;
+    detalle?: DetalleEvento;
 }

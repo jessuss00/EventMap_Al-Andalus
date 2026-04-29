@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -14,9 +15,10 @@ export class HeaderComponent {
   router = inject(Router);
 
   isDropdownOpen = false;
+  isLoggedIn$ = this.authService.isLoggedIn$;
 
-  isLoggedIn(): boolean {
-    return this.authService.isLoggedIn();
+  getHomeRoute(): string {
+    return this.authService.isLoggedIn() ? '/home' : '/login';
   }
 
   toggleDropdown(): void {

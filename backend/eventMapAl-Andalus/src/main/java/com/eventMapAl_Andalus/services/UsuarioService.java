@@ -42,4 +42,20 @@ public class UsuarioService implements UserDetailsService {
         
         return usuarioRepository.save(usuario);
     }
+
+    public Usuario findByEmail(String email) {
+        return this.usuarioRepository.findByEmail(email).orElse(null);
+    }
+
+    public Usuario update(String email, Usuario usuarioData) {
+        Usuario usuario = this.usuarioRepository.findByEmail(email).orElse(null);
+        if (usuario != null) {
+            usuario.setNombre(usuarioData.getNombre());
+            usuario.setApellidos(usuarioData.getApellidos());
+            usuario.setDni(usuarioData.getDni());
+            usuario.setEdad(usuarioData.getEdad());
+            return usuarioRepository.save(usuario);
+        }
+        return null;
+    }
 }

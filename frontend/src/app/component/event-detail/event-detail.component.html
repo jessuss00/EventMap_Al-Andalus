@@ -1,0 +1,130 @@
+<div class="detail-container" *ngIf="!loading && evento">
+  <!-- Hero Section -->
+  <div class="hero-section" [style.background-image]="'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url(' + evento.imagen + ')'">
+    <button class="back-btn" (click)="goBack()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      Volver
+    </button>
+    <div class="hero-content">
+      <span class="type-badge" [ngClass]="'badge-' + evento.tipo.toLowerCase()">{{ evento.tipo }}</span>
+      <h1>{{ evento.nombre }}</h1>
+      <p class="hero-subtitle" *ngIf="evento.municipio">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        {{ evento.municipio.nombre }}, {{ evento.municipio.provincia }}
+      </p>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="info-grid">
+      <!-- Quick Info Cards: Row 1 (3 columns) -->
+      <div class="info-card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </div>
+        <div class="card-text">
+          <h3>Fechas</h3>
+          <div class="date-range">
+            <div class="date-item">
+              <span class="date-label">Inicio:</span>
+              <p *ngIf="evento.detalle?.fechaInicio">{{ evento.detalle?.fechaInicio | date:'mediumDate':'':'es' }}</p>
+              <p *ngIf="evento.detalle?.fechaInicio" class="sub-text">{{ evento.detalle?.fechaInicio | date:'shortTime' }}</p>
+            </div>
+            <div class="date-item" *ngIf="evento.detalle?.fechaFin">
+              <span class="date-label">Fin:</span>
+              <p>{{ evento.detalle?.fechaFin | date:'mediumDate':'':'es' }}</p>
+              <p class="sub-text">{{ evento.detalle?.fechaFin | date:'shortTime' }}</p>
+            </div>
+          </div>
+          <p *ngIf="!evento.detalle?.fechaInicio">Fecha por confirmar</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+        </div>
+        <div class="card-text">
+          <h3>Subtipo</h3>
+          <p>{{ evento.detalle?.subtipo || 'No especificado' }}</p>
+          <p class="sub-text">Categoría del evento</p>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+        </div>
+        <div class="card-text">
+          <h3>Entradas</h3>
+          <a *ngIf="evento.detalle?.entradas" [href]="getExternalLink(evento.detalle?.entradas)" target="_blank" class="ticket-link url-text">
+            {{ evento.detalle?.entradas }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
+          <p *ngIf="!evento.detalle?.entradas">Información no disponible</p>
+        </div>
+      </div>
+
+      <!-- Full Width Location Card -->
+      <div class="info-card full-width">
+        <div class="card-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </div>
+        <div class="card-text">
+          <h3>Ubicación</h3>
+          <p class="location-name">{{ evento.detalle?.localizacionExacta || 'Localización por confirmar' }}</p>
+          <p class="sub-text" *ngIf="evento.municipio">{{ evento.municipio.nombre }}, {{ evento.municipio.provincia }}</p>
+          
+          <!-- Google Map Embed -->
+          <div class="map-container" *ngIf="mapUrl">
+            <iframe 
+              width="100%" 
+              height="300" 
+              frameborder="0" 
+              scrolling="no" 
+              marginheight="0" 
+              marginwidth="0" 
+              loading="lazy"
+              [src]="mapUrl">
+            </iframe>
+          </div>
+          <div class="map-placeholder" *ngIf="!mapUrl">
+            <p>Localización no disponible para mostrar en el mapa</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description Sections -->
+    <div class="content-sections">
+      <section class="desc-section">
+        <h2>Sobre el evento</h2>
+        <p class="simple-desc">{{ evento.descripcionSimple }}</p>
+        <div class="detailed-desc" *ngIf="evento.detalle?.descripcionDetallada">
+          <p>{{ evento.detalle?.descripcionDetallada }}</p>
+        </div>
+      </section>
+
+      <section class="category-section" *ngIf="evento.detalle?.subtipo">
+        <span class="category-label">Categoría específica:</span>
+        <span class="category-value">{{ evento.detalle?.subtipo }}</span>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div class="loading-overlay" *ngIf="loading">
+  <div class="spinner"></div>
+  <p>Cargando detalles mágicos...</p>
+</div>
+
+<!-- Error State -->
+<div class="error-container" *ngIf="!loading && error">
+  <div class="error-box">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+    <h2>¡Vaya!</h2>
+    <p>{{ error }}</p>
+    <button (click)="goBack()">Volver al inicio</button>
+  </div>
+</div>

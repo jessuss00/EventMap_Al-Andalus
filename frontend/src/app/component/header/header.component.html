@@ -1,18 +1,18 @@
 <header class="header">
-  <a href="/" class="logo-container">
+  <a [routerLink]="getHomeRoute()" class="logo-container">
     <div class="logo-icon">E</div>
     <span class="logo-text">EventMap</span>
   </a>
 
   <nav class="nav-links">
-    <a href="/" class="nav-link">Inicio</a>
+    <a [routerLink]="getHomeRoute()" class="nav-link">Inicio</a>
     
-    <ng-container *ngIf="!isLoggedIn()">
-      <a href="/login" class="btn-login">Iniciar Sesión</a>
-      <a href="/register" class="btn-register">Registrarse</a>
+    <ng-container *ngIf="(isLoggedIn$ | async) === false">
+      <a routerLink="/login" class="btn-login">Iniciar Sesión</a>
+      <a routerLink="/register" class="btn-register">Registrarse</a>
     </ng-container>
 
-    <ng-container *ngIf="isLoggedIn()">
+    <ng-container *ngIf="isLoggedIn$ | async">
       <div class="user-menu-container">
         <div class="user-profile" title="Mi Perfil" (click)="toggleDropdown()">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="profile-icon">

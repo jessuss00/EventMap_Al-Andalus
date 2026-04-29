@@ -16,4 +16,8 @@ public class EventoService {
     public List<Evento> getAllEventos() {
         return eventoRepository.findAll();
     }
+
+    public Evento getEventoById(int id) {
+        return eventoRepository.findById(id).orElse(null);
+    }
 }

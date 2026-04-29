@@ -8,12 +8,42 @@
     <p>Cargando eventos increíbles...</p>
   </div>
 
+  <!-- Filter Bar -->
+  <div class="filter-bar" *ngIf="!loading && eventos.length > 0">
+    <div class="filter-group">
+      <label for="tipoFilter">Tipo de Evento:</label>
+      <select id="tipoFilter" [(ngModel)]="filtroTipo">
+        <option value="Todos">Todos</option>
+        <option value="Cultural">Cultural</option>
+        <option value="Nocturno">Nocturno</option>
+        <option value="Deportivo">Deportivo</option>
+      </select>
+    </div>
+    
+    <div class="filter-group date-range-group">
+      <label>Filtrar por fechas:</label>
+      <div class="date-inputs">
+        <input type="date" id="fechaInicioFilter" [(ngModel)]="fechaInicioFiltro" title="Desde fecha" />
+        <span class="date-separator">-</span>
+        <input type="date" id="fechaFinFilter" [(ngModel)]="fechaFinFiltro" title="Hasta fecha" />
+      </div>
+    </div>
+    
+    <div class="filter-results-count" *ngIf="filtroTipo !== 'Todos' || fechaInicioFiltro !== '' || fechaFinFiltro !== ''">
+      <span>{{ eventosFiltrados.length }} evento(s) encontrado(s)</span>
+    </div>
+  </div>
+
   <div *ngIf="!loading && eventos.length === 0" class="empty-state">
     <p>No hay eventos disponibles en este momento.</p>
   </div>
+  
+  <div *ngIf="!loading && eventos.length > 0 && eventosFiltrados.length === 0" class="empty-state">
+    <p>No hay eventos que coincidan con tus filtros.</p>
+  </div>
 
-  <div class="events-grid" *ngIf="!loading && eventos.length > 0">
-    <div class="event-card" *ngFor="let ev of eventos">
+  <div class="events-grid" *ngIf="!loading && eventosFiltrados.length > 0">
+    <div class="event-card" *ngFor="let ev of eventosFiltrados">
       <div class="event-image-wrapper">
         <img [src]="ev.imagen" (error)="ev.imagen = 'https://picsum.photos/800/500?random=' + ev.id" alt="{{ ev.nombre }}">
         <span class="event-type-badge" [ngClass]="'badge-' + ev.tipo.toLowerCase()">{{ ev.tipo }}</span>
@@ -30,7 +60,7 @@
         </div>
 
         <p class="event-desc">{{ ev.descripcionSimple }}</p>
-        <button class="btn-details">Ver Información Detallada</button>
+        <button class="btn-details" [routerLink]="['/event', ev.id]">Ver Información Detallada</button>
       </div>
     </div>
   </div>
