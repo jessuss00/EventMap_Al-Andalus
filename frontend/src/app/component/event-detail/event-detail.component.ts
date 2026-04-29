@@ -44,8 +44,21 @@ export class EventDetailComponent implements OnInit {
           // que confunden a Google Maps.
           let address = this.evento.detalle.localizacionExacta;
           
-          if (address.length < 20 && this.evento.municipio) {
-            address += `, ${this.evento.municipio.nombre}`;
+          if (this.evento.municipio) {
+            const municipio = this.evento.municipio.nombre;
+            const provincia = this.evento.municipio.provincia;
+            
+            if (!address.toLowerCase().includes(municipio.toLowerCase())) {
+              address += `, ${municipio}`;
+            }
+            if (!address.toLowerCase().includes(provincia.toLowerCase())) {
+              address += `, ${provincia}`;
+            }
+          }
+          
+          // Añadir siempre el país para evitar que Google Maps se confunda con lugares de otros países
+          if (!address.toLowerCase().includes('españa') && !address.toLowerCase().includes('spain')) {
+            address += ', España';
           }
 
           const encodedAddress = encodeURIComponent(address);

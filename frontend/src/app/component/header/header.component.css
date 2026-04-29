@@ -28,19 +28,16 @@
   transform: scale(1.02);
 }
 
-.logo-icon {
+.logo-image {
+  height: 48px;
+  width: auto;
   margin-right: 12px;
-  background-color: var(--accent-gold);
-  color: var(--primary-color);
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  font-weight: 800;
-  font-size: 22px;
-  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.4);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  transition: transform 0.3s ease;
+}
+
+.logo-container:hover .logo-image {
+  transform: scale(1.05) rotate(-2deg);
 }
 
 .logo-text {
