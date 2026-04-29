@@ -258,3 +258,40 @@
 .btn-details:active {
   transform: translateY(0);
 }
+
+/* Add Event Button Premium Styles */
+.admin-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.btn-add-event {
+  background: var(--primary-color);
+  color: #ffffff;
+  border: 2px solid transparent;
+  padding: 14px 30px;
+  border-radius: 12px;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.btn-add-event:hover {
+  background: transparent;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 76, 58, 0.15);
+}
+
+.btn-add-event:active {
+  transform: translateY(0);
+}
+

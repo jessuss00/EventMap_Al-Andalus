@@ -25,11 +25,32 @@ public class EventoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Evento> getEventoById(@PathVariable int id) {
+    public ResponseEntity<Evento> getEventoById(@PathVariable("id") int id) {
         Evento evento = eventoService.getEventoById(id);
         if (evento != null) {
             return ResponseEntity.ok(evento);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @org.springframework.web.bind.annotation.PostMapping
+    public ResponseEntity<Evento> createEvento(@org.springframework.web.bind.annotation.RequestBody Evento evento) {
+        Evento savedEvento = eventoService.saveEvento(evento);
+        return ResponseEntity.ok(savedEvento);
+    }
+
+    @org.springframework.web.bind.annotation.PutMapping("/{id}")
+    public ResponseEntity<Evento> updateEvento(@PathVariable("id") int id, @org.springframework.web.bind.annotation.RequestBody Evento evento) {
+        Evento updatedEvento = eventoService.updateEvento(id, evento);
+        if (updatedEvento != null) {
+            return ResponseEntity.ok(updatedEvento);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @org.springframework.web.bind.annotation.DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEvento(@PathVariable("id") int id) {
+        eventoService.deleteEvento(id);
+        return ResponseEntity.noContent().build();
     }
 }

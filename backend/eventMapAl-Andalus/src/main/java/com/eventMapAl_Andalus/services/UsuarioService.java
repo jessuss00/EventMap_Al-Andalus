@@ -23,10 +23,16 @@ public class UsuarioService implements UserDetailsService {
         Usuario usuario = this.usuarioRepository.findByEmail(email).orElseThrow(
                 () -> new UsernameNotFoundException("El usuario con email " + email + " no existe."));
         
+        java.util.List<String> roles = new java.util.ArrayList<>();
+        roles.add("USER");
+        if (usuario.isAdmin()) {
+            roles.add("ADMIN");
+        }
+        
         return User.builder()
                 .username(usuario.getEmail())
                 .password(usuario.getPassword())
-                .roles("USER") 
+                .roles(roles.toArray(new String[0])) 
                 .build();
     }
     

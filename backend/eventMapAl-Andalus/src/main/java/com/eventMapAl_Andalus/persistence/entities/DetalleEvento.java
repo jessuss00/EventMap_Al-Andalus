@@ -35,7 +35,7 @@ public class DetalleEvento {
     private String entradas;
 
     @OneToOne
-    @JoinColumn(name = "evento", nullable = false)
+    @JoinColumn(name = "evento_id", nullable = false)
     @JsonIgnore 
     private Evento evento;
 }

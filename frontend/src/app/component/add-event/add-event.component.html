@@ -1,0 +1,129 @@
+<div class="add-event-container">
+  <div class="form-card">
+    <div class="card-header">
+      <button class="back-btn" routerLink="/home">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Volver
+      </button>
+      <h2>{{ isEditMode ? 'Editar Evento' : 'Añadir Nuevo Evento' }}</h2>
+    </div>
+
+    <div *ngIf="error" class="error-msg">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      {{ error }}
+    </div>
+
+    <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+
+      <!-- Información Básica -->
+      <section class="form-section">
+        <h3><span class="section-icon"></span> Información Básica</h3>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nombre">Nombre del Evento *</label>
+            <input type="text" id="nombre" formControlName="nombre" placeholder="Ej: Concierto de Jazz">
+            <span class="error-text"
+              *ngIf="eventForm.get('nombre')?.invalid && eventForm.get('nombre')?.touched">Requerido</span>
+          </div>
+
+          <div class="form-group">
+            <label for="tipo">Tipo *</label>
+            <select id="tipo" formControlName="tipo">
+              <option *ngFor="let t of tipos" [value]="t">{{ t }}</option>
+            </select>
+            <span class="error-text"
+              *ngIf="eventForm.get('tipo')?.invalid && eventForm.get('tipo')?.touched">Requerido</span>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="descripcionSimple">Descripción Corta *</label>
+            <textarea id="descripcionSimple" formControlName="descripcionSimple" rows="2"
+              placeholder="Resumen breve del evento..."></textarea>
+            <span class="error-text"
+              *ngIf="eventForm.get('descripcionSimple')?.invalid && eventForm.get('descripcionSimple')?.touched">Requerido</span>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="imagen">URL de la Imagen *</label>
+            <input type="url" id="imagen" formControlName="imagen" placeholder="https://ejemplo.com/imagen.jpg">
+            <span class="error-text"
+              *ngIf="eventForm.get('imagen')?.invalid && eventForm.get('imagen')?.touched">Requerido</span>
+          </div>
+
+          <div class="form-group">
+            <label for="municipioId">Municipio *</label>
+            <select id="municipioId" formControlName="municipioId">
+              <option value="" disabled selected>Selecciona un municipio</option>
+              <option *ngFor="let m of municipios" [value]="m.id">{{ m.nombre }} ({{ m.provincia }})</option>
+            </select>
+            <span class="error-text"
+              *ngIf="eventForm.get('municipioId')?.invalid && eventForm.get('municipioId')?.touched">Requerido</span>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label class="checkbox-container">
+              <input type="checkbox" formControlName="confirmada">
+              <span class="checkmark"></span>
+              ¿Evento Confirmado?
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Información Detallada -->
+      <section class="form-section">
+        <h3><span class="section-icon"></span> Información Detallada</h3>
+        <div class="form-grid">
+
+          <div class="form-group">
+            <label for="fechaInicio">Fecha y Hora de Inicio</label>
+            <input type="datetime-local" id="fechaInicio" formControlName="fechaInicio">
+          </div>
+
+          <div class="form-group">
+            <label for="fechaFin">Fecha y Hora de Fin</label>
+            <input type="datetime-local" id="fechaFin" formControlName="fechaFin">
+          </div>
+
+          <div class="form-group">
+            <label for="subtipo">Subtipo / Categoría Específica</label>
+            <input type="text" id="subtipo" formControlName="subtipo" placeholder="Ej: Flamenco, Teatro Clásico...">
+          </div>
+
+          <div class="form-group">
+            <label for="entradas">Enlace para Entradas</label>
+            <input type="url" id="entradas" formControlName="entradas" placeholder="https://tickets.com/...">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="localizacionExacta">Dirección Exacta</label>
+            <input type="text" id="localizacionExacta" formControlName="localizacionExacta"
+              placeholder="Ej: Plaza Mayor, 1">
+          </div>
+
+          <div class="form-group full-width">
+            <label for="descripcionDetallada">Descripción Detallada</label>
+            <textarea id="descripcionDetallada" formControlName="descripcionDetallada" rows="5"
+              placeholder="Toda la información completa sobre el evento..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" [disabled]="loading">
+          <span *ngIf="!loading">{{ isEditMode ? 'Guardar Cambios' : 'Crear Evento' }}</span>
+          <span *ngIf="loading" class="spinner-small"></span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

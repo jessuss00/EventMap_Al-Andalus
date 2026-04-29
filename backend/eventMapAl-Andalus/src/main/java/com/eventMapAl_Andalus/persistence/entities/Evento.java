@@ -34,10 +34,11 @@ public class Evento {
     private boolean confirmada;
     
     // Añadimos el campo imagen
+    @Column(columnDefinition = "TEXT")
     private String imagen;
 
     @ManyToOne
-    @JoinColumn(name = "municipio") 
+    @JoinColumn(name = "municipio_id") 
     private Municipio municipio;
 
     // Relación 1 a 1 con el detalle

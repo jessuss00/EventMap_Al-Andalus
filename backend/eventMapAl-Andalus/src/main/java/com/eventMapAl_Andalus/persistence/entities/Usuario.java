@@ -26,6 +26,8 @@ public class Usuario {
     @Column(name = "contraseña")
     private String password; 
     
+    private boolean admin;
+    
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Visita> visitas;

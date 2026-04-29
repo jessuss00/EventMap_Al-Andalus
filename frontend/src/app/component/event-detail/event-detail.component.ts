@@ -5,6 +5,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EventoService } from '../../services/evento.service';
 import { Evento } from '../../models/evento.model';
 
+import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-event-detail',
   standalone: true,
@@ -17,21 +19,38 @@ export class EventDetailComponent implements OnInit {
   loading: boolean = true;
   error: string | null = null;
   mapUrl: SafeResourceUrl | null = null;
+  isAdmin: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private eventoService: EventoService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin();
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadEvento(+id);
     } else {
       this.error = 'No se ha proporcionado un ID de evento válido.';
       this.loading = false;
+    }
+  }
+
+  deleteEvento(): void {
+    if (this.evento && confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+      this.eventoService.deleteEvento(this.evento.id).subscribe({
+        next: () => {
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          console.error('Error al eliminar el evento:', err);
+          alert('Hubo un error al eliminar el evento.');
+        }
+      });
     }
   }
 

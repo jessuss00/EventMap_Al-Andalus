@@ -44,4 +44,21 @@ export class AuthService {
       this.loggedIn.next(false);
     }
   }
+
+  isAdmin(): boolean {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const payloadBase64 = token.split('.')[1];
+          const decodedJson = atob(payloadBase64);
+          const payload = JSON.parse(decodedJson);
+          return payload.roles && payload.roles.includes('ROLE_ADMIN');
+        } catch (e) {
+          return false;
+        }
+      }
+    }
+    return false;
+  }
 }

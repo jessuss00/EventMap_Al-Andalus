@@ -1,7 +1,7 @@
 export interface DetalleEvento {
     id: number;
-    fechaInicio: string;
-    fechaFin: string;
+    fechaInicio?: string;
+    fechaFin?: string;
     subtipo: string;
     descripcionDetallada: string;
     localizacionExacta: string;
