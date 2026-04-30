@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { EventoService } from '../../services/evento.service';
+import { Evento } from '../../models/evento.model';
 
 @Component({
   selector: 'app-landing',
@@ -13,8 +15,10 @@ import { AuthService } from '../../services/auth.service';
 export class LandingComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private router = inject(Router);
+  private eventoService = inject(EventoService);
 
-  targetDate: Date = new Date('2026-06-15T00:00:00'); // Fecha de ejemplo para la próxima feria
+  targetDate: Date = new Date(); 
+  nextEventName: string = 'Próximo Evento';
   months: string = '00';
   days: string = '00';
   hours: string = '00';
@@ -25,7 +29,39 @@ export class LandingComponent implements OnInit, OnDestroy {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
     }
-    this.startCountdown();
+    this.loadNextEvent();
+  }
+
+  private loadNextEvent(): void {
+    this.eventoService.getEventos().subscribe({
+      next: (eventos) => {
+        const now = new Date();
+        const futureEvents = eventos
+          .filter(ev => ev.detalle && ev.detalle.fechaInicio)
+          .map(ev => ({
+            nombre: ev.nombre,
+            fecha: new Date(ev.detalle!.fechaInicio!)
+          }))
+          .filter(ev => ev.fecha > now)
+          .sort((a, b) => a.fecha.getTime() - b.fecha.getTime());
+
+        if (futureEvents.length > 0) {
+          this.targetDate = futureEvents[0].fecha;
+          this.nextEventName = futureEvents[0].nombre;
+          this.startCountdown();
+        } else {
+          // Fallback si no hay eventos futuros con fecha válida
+          this.targetDate = new Date(now.getFullYear(), now.getMonth() + 2, now.getDate());
+          this.startCountdown();
+        }
+      },
+      error: (err) => {
+        console.error('Error loading events for landing:', err);
+        const now = new Date();
+        this.targetDate = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+        this.startCountdown();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -38,7 +74,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.updateCountdown();
     this.timer = setInterval(() => {
       this.updateCountdown();
-    }, 60000); // Actualizar cada minuto para ahorrar recursos, o cada segundo si prefieres ver el segundero
+    }, 60000);
   }
 
   private updateCountdown(): void {
@@ -53,8 +89,6 @@ export class LandingComponent implements OnInit, OnDestroy {
       return;
     }
 
-    // Cálculos para meses, días, horas y minutos
-    // Nota: El cálculo de meses es aproximado (30 días)
     const m = Math.floor(distance / (1000 * 60 * 60 * 24 * 30));
     const d = Math.floor((distance % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
     const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

@@ -32,7 +32,7 @@ export class HeaderComponent {
   logout(): void {
     this.authService.logout();
     this.isDropdownOpen = false;
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   editProfile(): void {

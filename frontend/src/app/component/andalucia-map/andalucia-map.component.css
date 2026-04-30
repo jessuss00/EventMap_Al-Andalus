@@ -1,6 +1,5 @@
-/* ===== Map Section Container ===== */
 .map-section {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
@@ -9,7 +8,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 800;
   font-family: var(--font-heading);
   color: var(--primary-color);
@@ -59,12 +58,12 @@
 /* ===== Interactive Map ===== */
 .interactive-map {
   position: relative;
-  max-width: 1100px;
+  max-width: 850px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
-  border-radius: 24px;
-  padding: 20px;
+  border-radius: 20px;
+  padding: 15px;
   box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.6);
   overflow: hidden;
