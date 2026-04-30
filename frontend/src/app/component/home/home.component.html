@@ -1,8 +1,12 @@
 <div class="home-container">
   <div class="welcome-box">
     <h2>Descubre Eventos en Al-Andalus</h2>
-    <p>Explora la magia y la cultura de nuestra tierra. Encuentra los mejores eventos disponibles para ti.</p>
   </div>
+
+  <!-- Mapa Interactivo de Andalucía - Elemento principal -->
+  <app-andalucia-map *ngIf="!loading && eventos.length > 0" [selectedProvincia]="filtroProvincia"
+    (provinciaSelected)="filtrarPorProvincia($event)">
+  </app-andalucia-map>
 
   <div *ngIf="loading" class="loading-state">
     <p>Cargando eventos increíbles...</p>
@@ -11,7 +15,11 @@
   <!-- Botón Añadir Evento (Solo Admins) -->
   <div class="admin-actions" *ngIf="isAdmin">
     <button class="btn-add-event" routerLink="/event/new">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
       Añadir Nuevo Evento
     </button>
   </div>
@@ -27,7 +35,7 @@
         <option value="Deportivo">Deportivo</option>
       </select>
     </div>
-    
+
     <div class="filter-group date-range-group">
       <label>Filtrar por fechas:</label>
       <div class="date-inputs">
@@ -36,8 +44,9 @@
         <input type="date" id="fechaFinFilter" [(ngModel)]="fechaFinFiltro" title="Hasta fecha" />
       </div>
     </div>
-    
-    <div class="filter-results-count" *ngIf="filtroTipo !== 'Todos' || fechaInicioFiltro !== '' || fechaFinFiltro !== ''">
+
+    <div class="filter-results-count"
+      *ngIf="filtroTipo !== 'Todos' || fechaInicioFiltro !== '' || fechaFinFiltro !== ''">
       <span>{{ eventosFiltrados.length }} evento(s) encontrado(s)</span>
     </div>
   </div>
@@ -45,7 +54,7 @@
   <div *ngIf="!loading && eventos.length === 0" class="empty-state">
     <p>No hay eventos disponibles en este momento.</p>
   </div>
-  
+
   <div *ngIf="!loading && eventos.length > 0 && eventosFiltrados.length === 0" class="empty-state">
     <p>No hay eventos que coincidan con tus filtros.</p>
   </div>
@@ -53,14 +62,16 @@
   <div class="events-grid" *ngIf="!loading && eventosFiltrados.length > 0">
     <div class="event-card" *ngFor="let ev of eventosFiltrados">
       <div class="event-image-wrapper">
-        <img [src]="ev.imagen" (error)="ev.imagen = 'https://picsum.photos/800/500?random=' + ev.id" alt="{{ ev.nombre }}">
+        <img [src]="ev.imagen" (error)="ev.imagen = 'https://picsum.photos/800/500?random=' + ev.id"
+          alt="{{ ev.nombre }}">
         <span class="event-type-badge" [ngClass]="'badge-' + ev.tipo.toLowerCase()">{{ ev.tipo }}</span>
       </div>
       <div class="event-info">
         <h3>{{ ev.nombre }}</h3>
-        
+
         <div class="event-location" *ngIf="ev.municipio">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="location-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="location-icon">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
             <circle cx="12" cy="10" r="3"></circle>
           </svg>

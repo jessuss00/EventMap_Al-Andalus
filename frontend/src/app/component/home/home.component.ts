@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { EventoService } from '../../services/evento.service';
 import { AuthService } from '../../services/auth.service';
 import { Evento } from '../../models/evento.model';
+import { AndaluciaMapComponent } from '../andalucia-map/andalucia-map.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, AndaluciaMapComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit {
   filtroTipo: string = 'Todos';
   fechaInicioFiltro: string = '';
   fechaFinFiltro: string = '';
+  filtroProvincia: string = 'Todas';
 
   constructor(
     private eventoService: EventoService,
@@ -42,11 +44,23 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  filtrarPorProvincia(provincia: string) {
+    if (this.filtroProvincia === provincia) {
+      this.filtroProvincia = 'Todas'; // Toggle off
+    } else {
+      this.filtroProvincia = provincia;
+    }
+  }
+
   get eventosFiltrados(): Evento[] {
     return this.eventos.filter(ev => {
       // Filtro por Tipo
       const matchTipo = this.filtroTipo === 'Todos' || ev.tipo === this.filtroTipo;
       
+      // Filtro por Provincia
+      const matchProvincia = this.filtroProvincia === 'Todas' || 
+                             (ev.municipio && ev.municipio.provincia.toLowerCase() === this.filtroProvincia.toLowerCase());
+
       // Filtro por Rango de Fechas
       let matchFecha = true;
       if (ev.detalle) {
@@ -71,7 +85,7 @@ export class HomeComponent implements OnInit {
          matchFecha = false;
       }
       
-      return matchTipo && matchFecha;
+      return matchTipo && matchFecha && matchProvincia;
     });
   }
 }
