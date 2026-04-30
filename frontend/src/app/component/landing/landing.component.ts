@@ -3,7 +3,6 @@ import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { EventoService } from '../../services/evento.service';
-import { Evento } from '../../models/evento.model';
 
 @Component({
   selector: 'app-landing',
@@ -24,6 +23,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   hours: string = '00';
   minutes: string = '00';
   private timer: any;
+  private isRefreshing = false;
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
@@ -33,6 +33,9 @@ export class LandingComponent implements OnInit, OnDestroy {
   }
 
   private loadNextEvent(): void {
+    if (this.isRefreshing) return;
+    this.isRefreshing = true;
+
     this.eventoService.getEventos().subscribe({
       next: (eventos) => {
         const now = new Date();
@@ -48,18 +51,20 @@ export class LandingComponent implements OnInit, OnDestroy {
         if (futureEvents.length > 0) {
           this.targetDate = futureEvents[0].fecha;
           this.nextEventName = futureEvents[0].nombre;
-          this.startCountdown();
+          if (!this.timer) this.startCountdown();
         } else {
-          // Fallback si no hay eventos futuros con fecha válida
+          // Fallback
           this.targetDate = new Date(now.getFullYear(), now.getMonth() + 2, now.getDate());
-          this.startCountdown();
+          if (!this.timer) this.startCountdown();
         }
+        this.isRefreshing = false;
       },
       error: (err) => {
         console.error('Error loading events for landing:', err);
         const now = new Date();
         this.targetDate = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
-        this.startCountdown();
+        if (!this.timer) this.startCountdown();
+        this.isRefreshing = false;
       }
     });
   }
@@ -74,18 +79,15 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.updateCountdown();
     this.timer = setInterval(() => {
       this.updateCountdown();
-    }, 60000);
+    }, 1000); // Actualizamos cada segundo para que la transición sea instantánea al llegar a cero
   }
 
   private updateCountdown(): void {
     const now = new Date().getTime();
     const distance = this.targetDate.getTime() - now;
 
-    if (distance < 0) {
-      this.months = '00';
-      this.days = '00';
-      this.hours = '00';
-      this.minutes = '00';
+    if (distance <= 0) {
+      this.loadNextEvent();
       return;
     }
 
