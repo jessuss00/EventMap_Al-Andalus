@@ -1,6 +1,6 @@
 <app-header></app-header>
-<main class="main">
-  <div class="content">
+<main [class.main]="!isLandingPage()">
+  <div [class.content]="!isLandingPage()">
     <router-outlet></router-outlet>
   </div>
 </main>

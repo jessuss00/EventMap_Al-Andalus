@@ -7,7 +7,10 @@ import { EventDetailComponent } from './component/event-detail/event-detail.comp
 import { AddEventComponent } from './component/add-event/add-event.component';
 import { authGuard, guestGuard } from './guards/auth.guard';
 
+import { LandingComponent } from './component/landing/landing.component';
+
 export const routes: Routes = [
+  { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent, canActivate: [guestGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [guestGuard] },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
@@ -15,5 +18,5 @@ export const routes: Routes = [
   { path: 'event/edit/:id', component: AddEventComponent, canActivate: [authGuard] },
   { path: 'event/:id', component: EventDetailComponent, canActivate: [authGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '**', redirectTo: '' }
 ];

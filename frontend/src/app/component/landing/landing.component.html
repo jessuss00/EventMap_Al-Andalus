@@ -1,0 +1,100 @@
+<div class="landing-page">
+  <!-- Navigation / Header -->
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Descubre la Magia de Andalucía</h1>
+      <p>Sumérgete en el corazón del sur. Acceso privilegiado a los secretos mejor guardados de la cultura andaluza y
+        sus eventos más exclusivos.</p>
+
+      <div class="hero-actions">
+        <button class="btn-primary-hero" routerLink="/register">Registrarse para Ver Eventos</button>
+        <button class="btn-secondary-hero" routerLink="/login">Iniciar Sesión</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Countdown Section -->
+  <section class="countdown-section">
+    <p class="countdown-title">El siguiente evento es en:</p>
+    <div class="countdown-grid">
+      <div class="countdown-item">
+        <span class="number">{{ months }}</span>
+        <span class="label">Meses</span>
+      </div>
+      <div class="countdown-divider">:</div>
+      <div class="countdown-item">
+        <span class="number">{{ days }}</span>
+        <span class="label">Días</span>
+      </div>
+      <div class="countdown-divider">:</div>
+      <div class="countdown-item">
+        <span class="number">{{ hours }}</span>
+        <span class="label">Horas</span>
+      </div>
+      <div class="countdown-divider">:</div>
+      <div class="countdown-item">
+        <span class="number">{{ minutes }}</span>
+        <span class="label">Minutos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reserved Content Section -->
+  <section class="reserved-section" id="experiencia">
+    <div class="reserved-container">
+      <div class="reserved-info">
+        <span class="section-tag">CONTENIDO RESERVADO</span>
+        <h2>Privilegios de Miembro</h2>
+        <p>Los eventos más exclusivos de Andalucía —desde conciertos privados en palacios granadinos hasta la Feria de
+          Abril más reservada— solo son visibles para nuestra comunidad de miembros.</p>
+
+        <ul class="features-list">
+          <li>
+            <div class="icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <div>
+              <strong>Ubicaciones</strong>
+              <p>Conoce las ubicaciones de los eventos.</p>
+            </div>
+          </li>
+          <li>
+            <div class="icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div>
+              <strong>Calendario Eventos</strong>
+              <p>Planifica tu asistencia con antelación a las galas más importantes.</p>
+            </div>
+          </li>
+          <li>
+            <div class="icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                </polygon>
+              </svg>
+            </div>
+            <div>
+              <strong>Eventos Actualizados</strong>
+              <p>Entérate de los últimos eventos que ocurren en Andalucía.</p>
+            </div>
+          </li>
+        </ul>
+
+        <button class="btn-membership" routerLink="/register">Registrarse para ver eventos</button>
+      </div>
+    </div>
+  </section>
+</div>

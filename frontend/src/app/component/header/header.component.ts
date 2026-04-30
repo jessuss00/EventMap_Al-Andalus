@@ -17,8 +17,12 @@ export class HeaderComponent {
   isDropdownOpen = false;
   isLoggedIn$ = this.authService.isLoggedIn$;
 
+  isLandingPage(): boolean {
+    return this.router.url === '/' || this.router.url === '';
+  }
+
   getHomeRoute(): string {
-    return this.authService.isLoggedIn() ? '/home' : '/login';
+    return this.authService.isLoggedIn() ? '/home' : '/';
   }
 
   toggleDropdown(): void {
