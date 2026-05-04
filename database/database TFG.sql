@@ -44,7 +44,7 @@ create table detalle_evento(
     subtipo varchar(100),
     descripcion_detallada text,
     localizacion_exacta varchar(200),
-    entradas varchar(255),
+    entradas text,
     constraint fk_detalle_evento foreign key(evento_id) references evento(id)
 );
 
@@ -92,26 +92,26 @@ INSERT INTO evento (nombre, tipo, descripcion_simple, confirmada, municipio_id, 
 
 -- Detalles de eventos (IDs del 1 al 20 automáticos)
 INSERT INTO detalle_evento (evento_id, fecha_inicio, fecha_fin, subtipo, descripcion_detallada, localizacion_exacta, entradas) VALUES 
-(1, '2026-06-15 21:00:00', '2026-06-15 23:30:00', 'Flamenco', 'Espectáculo íntimo.', 'Sacromonte, Granada', 'flamencogranada.com'),
-(2, '2026-07-05 20:00:00', '2026-07-05 23:59:00', 'Flamenco', 'Cante hondo frente al mar.', 'Puerto de Almería', 'Taquilla puerto'),
-(3, '2026-08-15 19:00:00', '2026-08-16 02:00:00', 'Carnaval', 'Coplas y chirigotas.', 'Plaza de las Flores, Cádiz', 'Gratis'),
-(4, '2026-05-16 23:30:00', '2026-05-17 07:00:00', 'Discoteca', 'Experiencia VIP.', 'Isla de la Cartuja, Sevilla', 'antiquetheteatro.com'),
-(5, '2026-03-12 09:00:00', '2026-03-12 14:00:00', 'Trail', 'Carrera sobre nieve.', 'Sierra Nevada, Granada', 'sierranevada.es'),
-(6, '2026-06-20 22:00:00', '2026-06-21 06:00:00', 'Flamenco', 'Conciertos en plazas.', 'Plaza de las Tendillas, Córdoba', 'Gratis'),
-(7, '2026-07-10 09:00:00', '2026-07-10 13:00:00', 'Patrimonio', 'Guía especializado.', 'Alhambra, Granada', 'alhambra-tickets.es'),
-(8, '2026-07-20 10:00:00', '2026-07-20 20:00:00', 'Voley', 'Torneo de verano.', 'Playa de Almería', 'Inscripción abierta'),
-(9, '2026-04-18 12:00:00', '2026-04-25 06:00:00', 'Feria', 'Casetas y rebujito.', 'Recinto Ferial, Sevilla', 'Libre'),
-(10, '2026-08-10 17:00:00', '2026-08-12 20:00:00', 'Hípica', 'Carreras en la playa.', 'Cádiz Costa', 'Gratis'),
-(11, '2026-05-05 13:00:00', '2026-05-05 17:00:00', 'Tapas', 'Vino y gastronomía.', 'Judería, Córdoba', '25 euros'),
-(12, '2026-02-22 08:30:00', '2026-02-22 14:30:00', 'Atletismo', 'Circuito histórico.', 'Sevilla Centro', 'zurichmaratonsevilla.es'),
-(13, '2026-05-22 23:00:00', '2026-05-23 06:30:00', 'Show', 'Música comercial.', 'Calle Arabial, Granada', 'teatregranada.com'),
-(14, '2026-05-10 13:00:00', '2026-05-17 04:00:00', 'Feria', 'Caballos y vino.', 'Recinto ferial, Cádiz', 'Libre'),
-(15, '2026-06-26 08:00:00', '2026-06-26 15:00:00', 'Tradición', 'Ganado en marismas.', 'Huelva alrededores', 'Gratis'),
-(16, '2026-07-01 22:00:00', '2026-08-31 03:00:00', 'Festival', 'Conciertos de élite.', 'Marbella, Málaga', 'starlitemarbella.com'),
-(17, '2026-02-15 10:00:00', '2026-02-15 15:00:00', 'Ciclismo', 'Carrera UCI.', 'Centro Ciudad, Almería', 'ciclismoalmeria.es'),
-(18, '2026-09-01 20:00:00', '2026-09-30 23:00:00', 'Flamenco', 'Máximo exponente.', 'Teatro Maestranza, Sevilla', 'labienal.com'),
-(19, '2026-07-20 23:00:00', '2026-07-21 07:00:00', 'Party', 'DJ Internacional.', 'Puerto Banús, Málaga', 'Reserva VIP'),
-(20, '2026-12-15 09:00:00', '2026-12-15 15:00:00', 'Running', 'Vistas al mar.', 'Paseo del Parque, Málaga', 'malagamaraton.com');
+(1, '2026-06-15 21:00:00', '2026-06-15 23:30:00', 'Flamenco', 'Espectáculo íntimo.', 'Tablao Flamenco La Alborea Granada, C. Pan, 3, Albaicín, 18010 Granada', 'https://alboreaflamenco.com/?gad_source=6&gad_campaignid=797673558&gbraid=0AAAAADMRmZLoNIYcGcmiwWjv5AbqJYPJQ&gclid=Cj0KCQjwh-HPBhCIARIsAC0p3ccKWo8lIXjU5DAaSxEEYi9OMurEBbURInvxSMaP72JlK9ATGxIIv9IaAsUhEALw_wcB'),
+(2, '2026-07-05 20:00:00', '2026-07-05 23:59:00', 'Flamenco', 'Cante hondo frente al mar.', 'La Canastera tablao flamenco Almeria, C. Cordoneros, 5, 04002 Almería', 'Taquilla puerto'),
+(3, '2026-08-15 19:00:00', '2026-08-16 02:00:00', 'Carnaval', 'Coplas y chirigotas.', 'Gran Teatro Falla, Pl. Fragela, s/n, 11003 Cádiz', 'Gratis'),
+(4, '2026-05-16 23:30:00', '2026-05-17 07:00:00', 'Discoteca', 'Experiencia VIP.', 'Antique Theatro, C. Matemáticos Rey Pastor y Castro, s/n, 41092 Sevilla', 'https://antiquetheatro.com/'),
+(5, '2026-03-12 09:00:00', '2026-03-12 14:00:00', 'Trail', 'Carrera sobre nieve.', 'Estación de esquí Sierra Nevada, 18193 Monachil, Granada', 'https://sierranevadagranada.com/'),
+(6, '2026-06-20 22:00:00', '2026-06-21 06:00:00', 'Flamenco', 'Conciertos en plazas.', 'Pl. de las Tendillas, Centro, Córdoba', 'Gratis'),
+(7, '2026-07-10 09:00:00', '2026-07-10 13:00:00', 'Patrimonio', 'Guía especializado.', 'Alhambra, C. Real de la Alhambra, s/n, Centro, 18009 Granada', 'https://www.google.com/aclk?sa=L&ai=DChsSEwj8gN73mqCUAxXXn2gJHaGcBZoYACICCAEQAhoCd2Y&ae=2&aspm=1&co=1&ase=2&gclid=Cj0KCQjwh-HPBhCIARIsAC0p3ccfUQSV5ub5590O6sNT2OCITZSvQKm3odjT1KLNAAPhDPlltKlKQXwaAlJjEALw_wcB&cce=2&category=acrcp_v1_35&sig=AOD64_33lcNUnRVXljgUQ9A4hAhxfX-LIA&q&nis=4&adurl&ved=2ahUKEwignNT3mqCUAxWNRaQEHa2kIm8Q0Qx6BAghEAE'),
+(8, '2026-07-20 10:00:00', '2026-07-20 20:00:00', 'Voley', 'Torneo de verano.', 'Pistas Voley Playa de la Ribera del Andarax, Poligono Sgel 7/801, 77, 04007 Almería', 'Inscripción abierta'),
+(9, '2026-04-18 12:00:00', '2026-04-25 06:00:00', 'Feria', 'Casetas y rebujito.', 'Feria de Sevilla, C. Ignacio Sánchez Mejías, 109, 41011 Sevilla', 'Libre'),
+(10, '2026-08-10 17:00:00', '2026-08-12 20:00:00', 'Hípica', 'Carreras en la playa.', 'Meta carreras de caballos Sanlúcar de Barrameda, Sanlúcar de Barrameda, Cádiz', 'Gratis'),
+(11, '2026-05-05 13:00:00', '2026-05-05 17:00:00', 'Tapas', 'Vino y gastronomía.', 'Bodegas Mezquita Ribera | Restaurante Córdoba, Rda. de Isasa, 10, Centro, 14003 Córdoba', 'https://www.bodegasmezquita.com/ribera/?utm_source=gmb&utm_medium=organic&utm_campaign=gmb_booking#reserva?utm_source=google&utm_medium=organic&utm_campaign=maps'),
+(12, '2026-02-22 08:30:00', '2026-02-22 14:30:00', 'Atletismo', 'Circuito histórico.', 'Start Zurich Maratón de Sevilla, P.º de las Delicias, 193-149, 41013 Sevilla', 'https://teatroflamencogranada.com/?utm_source=GMB&utm_medium=organic&utm_campaign=gbp-website-link'),
+(13, '2026-05-22 23:00:00', '2026-05-23 06:30:00', 'Show', 'Música comercial.', 'Teatro Flamenco Granada, Campo del Príncipe, 7, Centro, 18009 Granada', 'https://teatroflamencogranada.com/?utm_source=GMB&utm_medium=organic&utm_campaign=gbp-website-link'),
+(14, '2026-05-10 13:00:00', '2026-05-17 04:00:00', 'Feria', 'Caballos y vino.', 'Feria del Caballo Jerez, P.º las Palmeras, 11405 Jerez de la Frontera, Cádiz', 'Libre'),
+(15, '2026-06-26 08:00:00', '2026-06-26 15:00:00', 'Tradición', 'Ganado en marismas.', 'Asociación Nacional de Criadores de Ganado Marismeño, C. el Pocito, 10, 21730 Almonte, Huelva', 'Gratis'),
+(16, '2026-07-01 22:00:00', '2026-08-31 03:00:00', 'Festival', 'Conciertos de élite.', 'Starlite Festival - Auditorio Marbella, C. Albinoni, 29602 Marbella, Málaga', 'https://starlitefestival.com/'),
+(17, '2026-02-15 10:00:00', '2026-02-15 15:00:00', 'Ciclismo', 'Carrera UCI.', 'Almería', 'Gratis'),
+(18, '2026-09-01 20:00:00', '2026-09-30 23:00:00', 'Flamenco', 'Máximo exponente.', 'Teatro de la Maestranza, P.º de Cristóbal Colón, 22, Casco Antiguo, 41001 Sevilla', 'https://www.labienal.com/venta-de-entradas-xxiv-bienal-de-flamenco-sevilla-2026'),
+(19, '2026-07-20 23:00:00', '2026-07-21 07:00:00', 'Party', 'DJ Internacional.', 'La Habana de Hemingway, Edificio Muelle Levante, 7 Puerto Banús, 29660 Nueva Andalucia, Marbella, Málaga', 'https://lahabanadehemingway.es/'),
+(20, '2026-12-15 09:00:00', '2026-12-15 15:00:00', 'Running', 'Vistas al mar.', 'Malaga maraton, Distrito Centro, 29005 Málaga', 'https://www.generalimaratonmalaga.com/');
 
 
 -- PRUEBAS FINALES
