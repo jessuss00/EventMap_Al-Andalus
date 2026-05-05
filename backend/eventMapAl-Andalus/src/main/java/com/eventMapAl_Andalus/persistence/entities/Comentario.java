@@ -6,25 +6,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "visita")
+@Table(name = "comentario")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Visita {
+public class Comentario {
 
     @EmbeddedId
-    private VisitaId id = new VisitaId();
+    private ComentarioId id = new ComentarioId();
 
     @ManyToOne
     @MapsId("usuario")
-    @JoinColumn(name = "usuario")
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne
     @MapsId("evento")
-    @JoinColumn(name = "evento")
+    @JoinColumn(name = "evento_id")
     private Evento evento;
 
-    @Column(columnDefinition = "TEXT")
-    private String comentarios;
+    @Column(name = "texto", columnDefinition = "TEXT")
+    private String texto;
+
+    @Column(name = "calificacion")
+    private int calificacion;
 }

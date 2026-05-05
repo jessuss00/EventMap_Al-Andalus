@@ -32,6 +32,7 @@ public class DetalleEvento {
     @Column(name = "localizacion_exacta")
     private String localizacionExacta;
 
+    @Column(columnDefinition = "TEXT")
     private String entradas;
 
     @OneToOne

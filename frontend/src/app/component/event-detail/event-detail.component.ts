@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { EventoService } from '../../services/evento.service';
+import { ComentarioService } from '../../services/comentario.service';
 import { Evento } from '../../models/evento.model';
-
+import { Comentario } from '../../models/comentario.model';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-event-detail',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './event-detail.component.html',
   styleUrl: './event-detail.component.css'
 })
@@ -20,20 +22,35 @@ export class EventDetailComponent implements OnInit {
   error: string | null = null;
   mapUrl: SafeResourceUrl | null = null;
   isAdmin: boolean = false;
+  isLoggedIn: boolean = false;
+  currentUserId: number | null = null;
+
+  // Comentarios
+  comentarios: Comentario[] = [];
+  loadingComentarios: boolean = false;
+  nuevoTexto: string = '';
+  nuevaCalificacion: number = 0;
+  hoverCalificacion: number = 0;
+  errorComentario: string | null = null;
+  enviandoComentario: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private eventoService: EventoService,
+    private comentarioService: ComentarioService,
     private sanitizer: DomSanitizer,
     private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     this.isAdmin = this.authService.isAdmin();
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.currentUserId = this.authService.getCurrentUserId();
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.loadEvento(+id);
+      this.loadComentarios(+id);
     } else {
       this.error = 'No se ha proporcionado un ID de evento válido.';
       this.loading = false;
@@ -59,8 +76,6 @@ export class EventDetailComponent implements OnInit {
       next: (data) => {
         this.evento = data;
         if (this.evento && this.evento.detalle && this.evento.detalle.localizacionExacta) {
-          // Si la dirección ya es bastante larga, la usamos directamente para evitar redundancias
-          // que confunden a Google Maps.
           let address = this.evento.detalle.localizacionExacta;
           
           if (this.evento.municipio) {
@@ -75,14 +90,11 @@ export class EventDetailComponent implements OnInit {
             }
           }
           
-          // Añadir siempre el país para evitar que Google Maps se confunda con lugares de otros países
           if (!address.toLowerCase().includes('españa') && !address.toLowerCase().includes('spain')) {
             address += ', España';
           }
 
           const encodedAddress = encodeURIComponent(address);
-          
-          // Formato más directo y con idioma español forzado
           this.mapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
             `https://maps.google.com/maps?hl=es&q=${encodedAddress}&t=&z=15&ie=UTF8&iwloc=B&output=embed`
           );
@@ -97,13 +109,99 @@ export class EventDetailComponent implements OnInit {
     });
   }
 
+  loadComentarios(eventoId: number): void {
+    this.loadingComentarios = true;
+    this.comentarioService.getByEvento(eventoId).subscribe({
+      next: (data) => {
+        this.comentarios = data;
+        this.loadingComentarios = false;
+      },
+      error: () => {
+        this.loadingComentarios = false;
+      }
+    });
+  }
+
+  submitComentario(): void {
+    if (!this.evento) return;
+    if (this.nuevoTexto.trim().length === 0) {
+      this.errorComentario = 'El comentario no puede estar vacío.';
+      return;
+    }
+    if (this.nuevaCalificacion === 0) {
+      this.errorComentario = 'Por favor, selecciona una calificación.';
+      return;
+    }
+    this.errorComentario = null;
+    this.enviandoComentario = true;
+
+    this.comentarioService.create({
+      eventoId: this.evento.id,
+      texto: this.nuevoTexto.trim(),
+      calificacion: this.nuevaCalificacion
+    }).subscribe({
+      next: (c) => {
+        this.comentarios = [...this.comentarios, c];
+        this.nuevoTexto = '';
+        this.nuevaCalificacion = 0;
+        this.hoverCalificacion = 0;
+        this.enviandoComentario = false;
+      },
+      error: (err) => {
+        this.errorComentario = err.error || 'Error al publicar el comentario.';
+        this.enviandoComentario = false;
+      }
+    });
+  }
+
+  deleteComentario(comentario: Comentario): void {
+    if (!confirm('¿Eliminar este comentario?')) return;
+    this.comentarioService.delete(comentario.id.usuario, comentario.id.evento).subscribe({
+      next: () => {
+        this.comentarios = this.comentarios.filter(c =>
+          !(c.id.usuario === comentario.id.usuario && c.id.evento === comentario.id.evento)
+        );
+      },
+      error: (err) => {
+        alert(err.error || 'Error al eliminar el comentario.');
+      }
+    });
+  }
+
+  canDeleteComentario(comentario: Comentario): boolean {
+    if (this.isAdmin) return true;
+    return this.isLoggedIn && this.currentUserId === comentario.id.usuario;
+  }
+
+  getAverageRating(): number {
+    if (this.comentarios.length === 0) return 0;
+    const sum = this.comentarios.reduce((acc, c) => acc + c.calificacion, 0);
+    return Math.round((sum / this.comentarios.length) * 10) / 10;
+  }
+
+  getStars(rating: number): boolean[] {
+    return [1, 2, 3, 4, 5].map(i => i <= Math.round(rating));
+  }
+
+  setCalificacion(value: number): void {
+    this.nuevaCalificacion = value;
+  }
+
+  setHover(value: number): void {
+    this.hoverCalificacion = value;
+  }
+
+  getActiveStars(index: number): boolean {
+    const active = this.hoverCalificacion || this.nuevaCalificacion;
+    return index <= active;
+  }
+
   goBack(): void {
     this.router.navigate(['/home']);
   }
 
   getExternalLink(url: string | undefined): string {
     if (!url) return '#';
-    // Si la URL no empieza por http:// o https://, le añadimos https:// por defecto
     if (!/^https?:\/\//i.test(url)) {
       return 'https://' + url;
     }

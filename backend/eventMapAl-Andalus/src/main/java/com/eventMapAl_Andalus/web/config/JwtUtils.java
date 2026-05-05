@@ -11,16 +11,22 @@ import org.springframework.stereotype.Component;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.eventMapAl_Andalus.persistence.repositories.UsuarioRepository;
 
 @Component
 public class JwtUtils {
     
     @Autowired
     private JwtConfig jwtConfig;
-    
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
     public String generateAccessToken(UserDetails userDetails) {
+        int userId = usuarioRepository.findByEmail(userDetails.getUsername())
+            .map(u -> u.getId()).orElse(0);
         return JWT.create()
             .withSubject(userDetails.getUsername())
+            .withClaim("id", userId)
             .withClaim("roles", userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
             .withIssuedAt(new Date())

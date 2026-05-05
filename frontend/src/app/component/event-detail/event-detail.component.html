@@ -110,6 +110,103 @@
         <span class="category-value">{{ evento.detalle?.subtipo }}</span>
       </section>
 
+      <!-- ======================== SECCIÓN DE COMENTARIOS ======================== -->
+      <section class="comentarios-section">
+        <div class="comentarios-header">
+          <div class="comentarios-title-row">
+            <h2>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              Comentarios
+            </h2>
+            <div class="rating-summary" *ngIf="comentarios.length > 0">
+              <div class="avg-stars">
+                <span class="star" *ngFor="let filled of getStars(getAverageRating())" [class.star-filled]="filled">★</span>
+              </div>
+              <span class="avg-text">{{ getAverageRating() }} de 5 ({{ comentarios.length }} {{ comentarios.length === 1 ? 'reseña' : 'reseñas' }})</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario: sólo si está logueado -->
+        <div class="comentario-form-wrapper" *ngIf="isLoggedIn; else loginPrompt">
+          <h3>Deja tu opinión</h3>
+          <div class="star-selector" aria-label="Calificación">
+            <span
+              *ngFor="let i of [1,2,3,4,5]"
+              class="star star-selectable"
+              [class.star-filled]="getActiveStars(i)"
+              (mouseenter)="setHover(i)"
+              (mouseleave)="setHover(0)"
+              (click)="setCalificacion(i)"
+              role="button"
+              [attr.aria-label]="'Calificar ' + i + ' de 5'">
+              ★
+            </span>
+            <span class="star-hint" *ngIf="nuevaCalificacion > 0">{{ nuevaCalificacion }}/5</span>
+          </div>
+          <div class="form-group">
+            <textarea
+              [(ngModel)]="nuevoTexto"
+              placeholder="Cuéntanos tu experiencia..."
+              rows="4"
+              maxlength="500"
+              class="comentario-textarea">
+            </textarea>
+            <span class="char-count">{{ nuevoTexto.length }}/500</span>
+          </div>
+          <div class="form-error" *ngIf="errorComentario">{{ errorComentario }}</div>
+          <button class="submit-btn" (click)="submitComentario()" [disabled]="enviandoComentario">
+            <span *ngIf="!enviandoComentario">Publicar comentario</span>
+            <span *ngIf="enviandoComentario">Publicando...</span>
+          </button>
+        </div>
+        <ng-template #loginPrompt>
+          <div class="login-prompt">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span><a routerLink="/login">Inicia sesión</a> para dejar un comentario.</span>
+          </div>
+        </ng-template>
+
+        <!-- Lista de comentarios -->
+        <div class="comentarios-lista" *ngIf="!loadingComentarios">
+          <div class="no-comentarios" *ngIf="comentarios.length === 0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <p>Aún no hay comentarios. ¡Sé el primero!</p>
+          </div>
+
+          <div class="comentario-card" *ngFor="let c of comentarios">
+            <div class="comentario-meta">
+              <div class="comentario-avatar">
+                {{ c.usuario.nombre.charAt(0).toUpperCase() }}{{ c.usuario.apellidos ? c.usuario.apellidos.charAt(0).toUpperCase() : '' }}
+              </div>
+              <div class="comentario-info">
+                <strong>{{ c.usuario.nombre }} {{ c.usuario.apellidos }}</strong>
+                <div class="comentario-stars">
+                  <span class="star" *ngFor="let i of [1,2,3,4,5]" [class.star-filled]="i <= c.calificacion">★</span>
+                </div>
+              </div>
+              <button
+                *ngIf="canDeleteComentario(c)"
+                class="delete-comentario-btn"
+                (click)="deleteComentario(c)"
+                title="Eliminar comentario">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  <line x1="10" y1="11" x2="10" y2="17"></line>
+                  <line x1="14" y1="11" x2="14" y2="17"></line>
+                </svg>
+              </button>
+            </div>
+            <p class="comentario-texto">{{ c.texto }}</p>
+          </div>
+        </div>
+        <div class="loading-comments" *ngIf="loadingComentarios">
+          <div class="spinner-sm"></div>
+          <span>Cargando comentarios...</span>
+        </div>
+      </section>
+
       <!-- Zona de Administración -->
       <section class="admin-zone" *ngIf="isAdmin">
         <div class="admin-zone-header">

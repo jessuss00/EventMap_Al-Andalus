@@ -30,5 +30,5 @@ public class Usuario {
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Visita> visitas;
+    private List<Comentario> comentarios;
 }

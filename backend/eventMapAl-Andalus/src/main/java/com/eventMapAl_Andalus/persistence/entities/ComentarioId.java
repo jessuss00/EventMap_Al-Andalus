@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VisitaId implements Serializable {
+public class ComentarioId implements Serializable {
     private int usuario;
     private int evento;
 }

@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({
         EventoNotFoundException.class, 
         MunicipioNotFoundException.class, 
-        VisitaNotFoundException.class
+        ComentarioNotFoundException.class
     })
     public ResponseEntity<String> handleNotFound(RuntimeException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({
         EventoException.class, 
         MunicipioException.class, 
-        VisitaException.class,
+        ComentarioException.class,
         PasswordException.class
     })
     public ResponseEntity<String> handleBadRequest(RuntimeException ex) {

@@ -61,4 +61,21 @@ export class AuthService {
     }
     return false;
   }
+
+  getCurrentUserId(): number | null {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const token = localStorage.getItem('token');
+      if (token) {
+        try {
+          const payloadBase64 = token.split('.')[1];
+          const decodedJson = atob(payloadBase64);
+          const payload = JSON.parse(decodedJson);
+          return payload.id ?? null;
+        } catch (e) {
+          return null;
+        }
+      }
+    }
+    return null;
+  }
 }
