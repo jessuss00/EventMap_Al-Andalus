@@ -418,17 +418,118 @@ h1 {
   .info-card.full-width {
     grid-column: span 2;
   }
+  
+  h1 { font-size: 2.8rem; }
 }
 
 @media (max-width: 768px) {
-  h1 { font-size: 2.5rem; }
-  .hero-section { height: 350px; padding: 20px; }
-  .main-content { margin-top: -30px; }
+  .hero-section {
+    height: auto;
+    min-height: 350px;
+    padding: 60px 20px 30px;
+  }
+
+  .back-btn {
+    top: 15px;
+    left: 15px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  h1 { font-size: 2.2rem; }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .main-content {
+    margin-top: -20px;
+    padding: 0 15px;
+  }
+
   .info-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
   }
+
   .info-card.full-width {
     grid-column: span 1;
+  }
+
+  .info-card {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .content-sections {
+    padding: 25px 20px;
+  }
+
+  .desc-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .simple-desc {
+    font-size: 1.1rem;
+  }
+
+  .comentarios-title-row h2 {
+    font-size: 1.4rem;
+  }
+
+  .comentario-form-wrapper {
+    padding: 20px;
+  }
+
+  .admin-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .edit-btn-elegant, .delete-btn-elegant {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.8rem; }
+
+  .hero-section {
+    min-height: 300px;
+  }
+
+  .info-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .card-icon {
+    margin-bottom: 5px;
+  }
+
+  .date-item {
+    border-left: none;
+    border-top: 1px solid #e2e8f0;
+    padding-left: 0;
+    padding-top: 10px;
+  }
+
+  .comentario-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .delete-comentario-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .comentario-card {
+    position: relative;
   }
 }
 

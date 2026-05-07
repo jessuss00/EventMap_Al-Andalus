@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Evento } from '../models/evento.model';
 
 @Injectable({
@@ -8,7 +8,14 @@ import { Evento } from '../models/evento.model';
 })
 export class EventoService {
 
-  private apiUrl = 'http://localhost:8081/api/eventos'; // Puerto ajustado al backend correcto
+  private apiUrl = 'http://localhost:8081/api/eventos'; 
+  
+  private searchSubject = new BehaviorSubject<string>('');
+  searchQuery$ = this.searchSubject.asObservable();
+
+  setSearchQuery(query: string): void {
+    this.searchSubject.next(query);
+  }
 
   constructor(private http: HttpClient) { }
 

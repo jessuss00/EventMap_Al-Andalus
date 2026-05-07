@@ -421,64 +421,165 @@
 }
 
 /* Responsive */
+/* Responsive Refinement */
 @media (max-width: 1400px) {
   .landing-header {
-    padding: 40px 60px;
+    padding: 30px 5%;
   }
 }
 
 @media (max-width: 1200px) {
-  .reserved-container {
-    grid-template-columns: 1fr;
-    gap: 80px;
+  .hero-content h1 {
+    font-size: 4.5rem;
   }
   
-  .reserved-visuals {
-    order: -1;
-  }
-  
-  .image-stack {
-    width: 100%;
-    max-width: 600px;
+  .reserved-info h2 {
+    font-size: 3.5rem;
   }
 }
 
-@media (max-width: 768px) {
-  .landing-header {
-    padding: 30px 40px;
-  }
-  
-  .landing-nav {
-    display: none;
-  }
-  
+@media (max-width: 992px) {
   .hero-content h1 {
     font-size: 3.5rem;
   }
   
   .hero-content p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+  }
+  
+  .reserved-section {
+    padding: 60px 30px;
+  }
+
+  .reserved-info h2 {
+    font-size: 2.8rem;
+  }
+  
+  .footer-content {
+    padding: 100px 40px;
+  }
+  
+  .footer-content h3 {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    height: auto;
+    padding: 120px 20px;
+    min-height: 100vh;
+  }
+
+  .hero-content {
+    margin-top: 0;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 25px;
+  }
+  
+  .hero-content p {
+    font-size: 1.15rem;
+    margin-bottom: 40px;
   }
   
   .hero-actions {
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .btn-primary-hero, .btn-secondary-hero {
+    width: 100%;
+    padding: 18px 30px;
   }
   
+  .countdown-title {
+    font-size: 1.3rem;
+    margin-bottom: 40px;
+    padding: 0 20px;
+  }
+
   .countdown-grid {
-    gap: 20px;
+    gap: 15px;
   }
   
   .countdown-item {
-    min-width: 100px;
-    padding: 20px 15px;
+    min-width: 80px;
+    padding: 15px 10px;
+    flex: 1 1 40%;
   }
 
   .countdown-item .number {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
+  }
+  
+  .countdown-item .label {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
   }
 
   .countdown-divider {
     display: none;
+  }
+
+  .reserved-info h2 {
+    font-size: 2.4rem;
+  }
+
+  .features-list {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .features-list li {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .btn-membership {
+    width: 100%;
+    padding: 18px 30px;
+    letter-spacing: 2px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+    box-shadow: none;
+    gap: 15px;
+  }
+
+  .newsletter-form input {
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .btn-subscribe {
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .countdown-item {
+    flex: 1 1 100%;
   }
 }

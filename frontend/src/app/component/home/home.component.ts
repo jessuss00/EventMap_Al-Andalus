@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   fechaInicioFiltro: string = '';
   fechaFinFiltro: string = '';
   filtroProvincia: string = 'Todas';
+  searchText: string = '';
 
   constructor(
     private eventoService: EventoService,
@@ -32,6 +33,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAdmin = this.authService.isAdmin();
+    
+    // Escuchar cambios en la búsqueda global del header
+    this.eventoService.searchQuery$.subscribe(query => {
+      this.searchText = query;
+    });
+
     this.eventoService.getEventos().subscribe({
       next: (data) => {
         this.eventos = data;
@@ -85,7 +92,14 @@ export class HomeComponent implements OnInit {
          matchFecha = false;
       }
       
-      return matchTipo && matchFecha && matchProvincia;
+      // Filtro por Nombre, Provincia o Municipio (Buscador Global)
+      const query = this.searchText.toLowerCase();
+      const matchSearch = !this.searchText || 
+                          ev.nombre.toLowerCase().includes(query) ||
+                          (ev.municipio?.provincia?.toLowerCase().includes(query) ?? false) ||
+                          (ev.municipio?.nombre?.toLowerCase().includes(query) ?? false);
+
+      return matchTipo && matchFecha && matchProvincia && matchSearch;
     });
   }
 }
