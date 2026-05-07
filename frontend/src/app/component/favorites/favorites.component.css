@@ -219,12 +219,31 @@
   stroke-width: 2.5;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .favorites-container {
+    padding: 30px 4%;
+  }
+
+  .header-content h1 {
+    font-size: 2rem;
+  }
+
+  .favorites-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
   .header-content h1 {
     font-size: 1.8rem;
   }
 
   .favorites-grid {
     grid-template-columns: 1fr;
+  }
+
+  .favorite-card {
+    border-radius: 15px;
   }
 }
