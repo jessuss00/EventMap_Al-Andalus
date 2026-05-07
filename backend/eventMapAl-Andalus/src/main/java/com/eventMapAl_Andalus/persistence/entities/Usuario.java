@@ -28,6 +28,9 @@ public class Usuario {
     
     private boolean admin;
     
+    @Column(name = "favoritos_ids", columnDefinition = "TEXT")
+    private String favoritosIds = "";
+    
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Comentario> comentarios;

@@ -1,15 +1,27 @@
 <div class="detail-container" *ngIf="!loading && evento">
   <!-- Hero Section -->
-  <div class="hero-section" [style.background-image]="'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url(' + evento.imagen + ')'">
+  <div class="hero-section"
+    [style.background-image]="'linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url(' + evento.imagen + ')'">
     <button class="back-btn" (click)="goBack()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
       Volver
     </button>
     <div class="hero-content">
       <span class="type-badge" [ngClass]="'badge-' + evento.tipo.toLowerCase()">{{ evento.tipo }}</span>
-      <h1>{{ evento.nombre }}</h1>
+      <div class="title-with-favorite">
+        <h1>{{ evento.nombre }}</h1>
+
+      </div>
       <p class="hero-subtitle" *ngIf="evento.municipio">
-        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
         {{ evento.municipio.nombre }}, {{ evento.municipio.provincia }}
       </p>
     </div>
@@ -20,7 +32,13 @@
       <!-- Quick Info Cards: Row 1 (3 columns) -->
       <div class="info-card">
         <div class="card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="16" y1="2" x2="16" y2="6"></line>
+            <line x1="8" y1="2" x2="8" y2="6"></line>
+            <line x1="3" y1="10" x2="21" y2="10"></line>
+          </svg>
         </div>
         <div class="card-text">
           <h3>Fechas</h3>
@@ -28,7 +46,8 @@
             <div class="date-item">
               <span class="date-label">Inicio:</span>
               <p *ngIf="evento.detalle?.fechaInicio">{{ evento.detalle?.fechaInicio | date:'mediumDate':'':'es' }}</p>
-              <p *ngIf="evento.detalle?.fechaInicio" class="sub-text">{{ evento.detalle?.fechaInicio | date:'shortTime' }}</p>
+              <p *ngIf="evento.detalle?.fechaInicio" class="sub-text">{{ evento.detalle?.fechaInicio | date:'shortTime'
+                }}</p>
             </div>
             <div class="date-item" *ngIf="evento.detalle?.fechaFin">
               <span class="date-label">Fin:</span>
@@ -42,7 +61,12 @@
 
       <div class="info-card">
         <div class="card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
         </div>
         <div class="card-text">
           <h3>Subtipo</h3>
@@ -53,13 +77,23 @@
 
       <div class="info-card">
         <div class="card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+          </svg>
         </div>
         <div class="card-text">
           <h3>Entradas</h3>
-          <a *ngIf="evento.detalle?.entradas" [href]="getExternalLink(evento.detalle?.entradas)" target="_blank" class="ticket-link url-text">
+          <a *ngIf="evento.detalle?.entradas" [href]="getExternalLink(evento.detalle?.entradas)" target="_blank"
+            class="ticket-link url-text">
             {{ evento.detalle?.entradas }}
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
           </a>
           <p *ngIf="!evento.detalle?.entradas">Información no disponible</p>
         </div>
@@ -68,24 +102,22 @@
       <!-- Full Width Location Card -->
       <div class="info-card full-width">
         <div class="card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
         </div>
         <div class="card-text">
           <h3>Ubicación</h3>
           <p class="location-name">{{ evento.detalle?.localizacionExacta || 'Localización por confirmar' }}</p>
-          <p class="sub-text" *ngIf="evento.municipio">{{ evento.municipio.nombre }}, {{ evento.municipio.provincia }}</p>
-          
+          <p class="sub-text" *ngIf="evento.municipio">{{ evento.municipio.nombre }}, {{ evento.municipio.provincia }}
+          </p>
+
           <!-- Google Map Embed -->
           <div class="map-container" *ngIf="mapUrl">
-            <iframe 
-              width="100%" 
-              height="300" 
-              frameborder="0" 
-              scrolling="no" 
-              marginheight="0" 
-              marginwidth="0" 
-              loading="lazy"
-              [src]="mapUrl">
+            <iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+              loading="lazy" [src]="mapUrl">
             </iframe>
           </div>
           <div class="map-placeholder" *ngIf="!mapUrl">
@@ -115,14 +147,19 @@
         <div class="comentarios-header">
           <div class="comentarios-title-row">
             <h2>
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
               Comentarios
             </h2>
             <div class="rating-summary" *ngIf="comentarios.length > 0">
               <div class="avg-stars">
-                <span class="star" *ngFor="let filled of getStars(getAverageRating())" [class.star-filled]="filled">★</span>
+                <span class="star" *ngFor="let filled of getStars(getAverageRating())"
+                  [class.star-filled]="filled">★</span>
               </div>
-              <span class="avg-text">{{ getAverageRating() }} de 5 ({{ comentarios.length }} {{ comentarios.length === 1 ? 'reseña' : 'reseñas' }})</span>
+              <span class="avg-text">{{ getAverageRating() }} de 5 ({{ comentarios.length }} {{ comentarios.length === 1
+                ? 'reseña' : 'reseñas' }})</span>
             </div>
           </div>
         </div>
@@ -131,25 +168,15 @@
         <div class="comentario-form-wrapper" *ngIf="isLoggedIn; else loginPrompt">
           <h3>Deja tu opinión</h3>
           <div class="star-selector" aria-label="Calificación">
-            <span
-              *ngFor="let i of [1,2,3,4,5]"
-              class="star star-selectable"
-              [class.star-filled]="getActiveStars(i)"
-              (mouseenter)="setHover(i)"
-              (mouseleave)="setHover(0)"
-              (click)="setCalificacion(i)"
-              role="button"
+            <span *ngFor="let i of [1,2,3,4,5]" class="star star-selectable" [class.star-filled]="getActiveStars(i)"
+              (mouseenter)="setHover(i)" (mouseleave)="setHover(0)" (click)="setCalificacion(i)" role="button"
               [attr.aria-label]="'Calificar ' + i + ' de 5'">
               ★
             </span>
             <span class="star-hint" *ngIf="nuevaCalificacion > 0">{{ nuevaCalificacion }}/5</span>
           </div>
           <div class="form-group">
-            <textarea
-              [(ngModel)]="nuevoTexto"
-              placeholder="Cuéntanos tu experiencia..."
-              rows="4"
-              maxlength="500"
+            <textarea [(ngModel)]="nuevoTexto" placeholder="Cuéntanos tu experiencia..." rows="4" maxlength="500"
               class="comentario-textarea">
             </textarea>
             <span class="char-count">{{ nuevoTexto.length }}/500</span>
@@ -162,7 +189,11 @@
         </div>
         <ng-template #loginPrompt>
           <div class="login-prompt">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
             <span><a routerLink="/login">Inicia sesión</a> para dejar un comentario.</span>
           </div>
         </ng-template>
@@ -170,14 +201,18 @@
         <!-- Lista de comentarios -->
         <div class="comentarios-lista" *ngIf="!loadingComentarios">
           <div class="no-comentarios" *ngIf="comentarios.length === 0">
-            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"
+              stroke="#cbd5e1" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
             <p>Aún no hay comentarios. ¡Sé el primero!</p>
           </div>
 
           <div class="comentario-card" *ngFor="let c of comentarios">
             <div class="comentario-meta">
               <div class="comentario-avatar">
-                {{ c.usuario.nombre.charAt(0).toUpperCase() }}{{ c.usuario.apellidos ? c.usuario.apellidos.charAt(0).toUpperCase() : '' }}
+                {{ c.usuario.nombre.charAt(0).toUpperCase() }}{{ c.usuario.apellidos ?
+                c.usuario.apellidos.charAt(0).toUpperCase() : '' }}
               </div>
               <div class="comentario-info">
                 <strong>{{ c.usuario.nombre }} {{ c.usuario.apellidos }}</strong>
@@ -185,12 +220,10 @@
                   <span class="star" *ngFor="let i of [1,2,3,4,5]" [class.star-filled]="i <= c.calificacion">★</span>
                 </div>
               </div>
-              <button
-                *ngIf="canDeleteComentario(c)"
-                class="delete-comentario-btn"
-                (click)="deleteComentario(c)"
+              <button *ngIf="canDeleteComentario(c)" class="delete-comentario-btn" (click)="deleteComentario(c)"
                 title="Eliminar comentario">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                   <line x1="10" y1="11" x2="10" y2="17"></line>
@@ -210,17 +243,30 @@
       <!-- Zona de Administración -->
       <section class="admin-zone" *ngIf="isAdmin">
         <div class="admin-zone-header">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
           <h3>Zona de Administración</h3>
         </div>
         <p>Como administrador, puedes gestionar este evento.</p>
         <div class="admin-buttons">
           <button class="edit-btn-elegant" [routerLink]="['/event/edit', evento.id]">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
             Editar Evento
           </button>
           <button class="delete-btn-elegant" (click)="deleteEvento()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
             Eliminar Evento Permanentemente
           </button>
         </div>
@@ -238,7 +284,12 @@
 <!-- Error State -->
 <div class="error-container" *ngIf="!loading && error">
   <div class="error-box">
-    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e74c3c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#e74c3c"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
     <h2>¡Vaya!</h2>
     <p>{{ error }}</p>
     <button (click)="goBack()">Volver al inicio</button>

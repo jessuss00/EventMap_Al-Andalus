@@ -822,6 +822,48 @@ h1 {
   display: block;
 }
 
+.title-with-favorite {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn-favorite-detail {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.btn-favorite-detail:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.1) translateY(-2px);
+  border-color: #FFD700;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.btn-favorite-detail.active {
+  color: #FFD700;
+  background: white;
+  border-color: #FFD700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.btn-favorite-detail.active svg {
+  animation: starBounce 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+
 /* Empty / loading states */
 .no-comentarios {
   text-align: center;

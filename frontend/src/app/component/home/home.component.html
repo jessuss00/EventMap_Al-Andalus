@@ -3,7 +3,6 @@
     <h2>Descubre Eventos en Al-Andalus</h2>
   </div>
 
-  <!-- Mapa Interactivo de Andalucía - Elemento principal -->
   <app-andalucia-map *ngIf="!loading && eventos.length > 0" [selectedProvincia]="filtroProvincia"
     (provinciaSelected)="filtrarPorProvincia($event)">
   </app-andalucia-map>
@@ -12,7 +11,6 @@
     <p>Cargando eventos increíbles...</p>
   </div>
 
-  <!-- Botón Añadir Evento (Solo Admins) -->
   <div class="admin-actions" *ngIf="isAdmin">
     <button class="btn-add-event" routerLink="/event/new">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -24,7 +22,6 @@
     </button>
   </div>
 
-  <!-- Filter Bar -->
   <div class="filter-bar" *ngIf="!loading && eventos.length > 0">
     <div class="filter-group">
       <label for="tipoFilter">Tipo de Evento:</label>
@@ -65,6 +62,17 @@
         <img [src]="ev.imagen" (error)="ev.imagen = 'https://picsum.photos/800/500?random=' + ev.id"
           alt="{{ ev.nombre }}">
         <span class="event-type-badge" [ngClass]="'badge-' + ev.tipo.toLowerCase()">{{ ev.tipo }}</span>
+
+        <!-- Estrella limpia en la esquina de la imagen (Recuadro rojo superior) -->
+        <button *ngIf="isLoggedIn" class="btn-star-clean" [class.active]="esFavorito(ev.id)"
+          (click)="toggleFavorito(ev.id); $event.stopPropagation()" title="Añadir a favoritos">
+          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+            </polygon>
+          </svg>
+        </button>
       </div>
       <div class="event-info">
         <h3>{{ ev.nombre }}</h3>

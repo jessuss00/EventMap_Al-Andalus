@@ -79,6 +79,12 @@ export class HeaderComponent {
     this.router.navigate(['/profile']);
   }
 
+  viewFavorites(): void {
+    this.isDropdownOpen = false;
+    this.isMobileMenuOpen = false;
+    this.router.navigate(['/favorites']);
+  }
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;

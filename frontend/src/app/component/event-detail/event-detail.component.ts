@@ -24,6 +24,7 @@ export class EventDetailComponent implements OnInit {
   isAdmin: boolean = false;
   isLoggedIn: boolean = false;
   currentUserId: number | null = null;
+  isFavorito: boolean = false;
 
   // Comentarios
   comentarios: Comentario[] = [];
@@ -51,10 +52,28 @@ export class EventDetailComponent implements OnInit {
     if (id) {
       this.loadEvento(+id);
       this.loadComentarios(+id);
+      if (this.isLoggedIn) {
+        this.checkFavorito(+id);
+      }
     } else {
       this.error = 'No se ha proporcionado un ID de evento válido.';
       this.loading = false;
     }
+  }
+
+  checkFavorito(id: number): void {
+    this.eventoService.isFavorito(id).subscribe({
+      next: (val) => this.isFavorito = val,
+      error: (err) => console.error('Error checking favorite:', err)
+    });
+  }
+
+  toggleFavorito(): void {
+    if (!this.evento || !this.isLoggedIn) return;
+    this.eventoService.toggleFavorito(this.evento.id).subscribe({
+      next: () => this.isFavorito = !this.isFavorito,
+      error: (err) => console.error('Error toggling favorite:', err)
+    });
   }
 
   deleteEvento(): void {
@@ -140,14 +159,14 @@ export class EventDetailComponent implements OnInit {
       texto: this.nuevoTexto.trim(),
       calificacion: this.nuevaCalificacion
     }).subscribe({
-      next: (c) => {
+      next: (c: Comentario) => {
         this.comentarios = [...this.comentarios, c];
         this.nuevoTexto = '';
         this.nuevaCalificacion = 0;
         this.hoverCalificacion = 0;
         this.enviandoComentario = false;
       },
-      error: (err) => {
+      error: (err: any) => {
         this.errorComentario = err.error || 'Error al publicar el comentario.';
         this.enviandoComentario = false;
       }
@@ -162,7 +181,7 @@ export class EventDetailComponent implements OnInit {
           !(c.id.usuario === comentario.id.usuario && c.id.evento === comentario.id.evento)
         );
       },
-      error: (err) => {
+      error: (err: any) => {
         alert(err.error || 'Error al eliminar el comentario.');
       }
     });

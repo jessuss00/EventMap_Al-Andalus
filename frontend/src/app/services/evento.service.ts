@@ -38,4 +38,20 @@ export class EventoService {
   deleteEvento(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  // Métodos para favoritos
+  private favoritosUrl = 'http://localhost:8081/api/favoritos';
+
+  toggleFavorito(eventoId: number): Observable<void> {
+    return this.http.post<void>(`${this.favoritosUrl}/${eventoId}`, {});
+  }
+
+  getFavoritos(): Observable<Evento[]> {
+    return this.http.get<Evento[]>(this.favoritosUrl);
+  }
+
+  isFavorito(eventoId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.favoritosUrl}/check/${eventoId}`);
+  }
 }
+

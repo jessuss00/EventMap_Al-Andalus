@@ -18,6 +18,8 @@ export class HomeComponent implements OnInit {
   eventos: Evento[] = [];
   loading: boolean = true;
   isAdmin: boolean = false;
+  isLoggedIn: boolean = false;
+  favoritosIds: Set<number> = new Set();
   
   // Filtros
   filtroTipo: string = 'Todos';
@@ -33,6 +35,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAdmin = this.authService.isAdmin();
+    this.isLoggedIn = this.authService.isLoggedIn();
     
     // Escuchar cambios en la búsqueda global del header
     this.eventoService.searchQuery$.subscribe(query => {
@@ -49,6 +52,40 @@ export class HomeComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    if (this.isLoggedIn) {
+      this.loadFavoritos();
+    }
+  }
+
+  loadFavoritos(): void {
+    this.eventoService.getFavoritos().subscribe({
+      next: (favs) => {
+        this.favoritosIds = new Set(favs.map(f => f.id));
+      },
+      error: (err) => console.error('Error loading favorites:', err)
+    });
+  }
+
+  toggleFavorito(eventoId: number): void {
+    if (!this.isLoggedIn) {
+      return;
+    }
+
+    this.eventoService.toggleFavorito(eventoId).subscribe({
+      next: () => {
+        if (this.favoritosIds.has(eventoId)) {
+          this.favoritosIds.delete(eventoId);
+        } else {
+          this.favoritosIds.add(eventoId);
+        }
+      },
+      error: (err) => console.error('Error toggling favorite:', err)
+    });
+  }
+
+  esFavorito(eventoId: number): boolean {
+    return this.favoritosIds.has(eventoId);
   }
 
   filtrarPorProvincia(provincia: string) {
@@ -72,23 +109,19 @@ export class HomeComponent implements OnInit {
       let matchFecha = true;
       if (ev.detalle) {
         const evInicio = ev.detalle.fechaInicio ? new Date(ev.detalle.fechaInicio).setHours(0,0,0,0) : null;
-        // Si no tiene fechaFin, asumimos que termina el mismo día que empieza
         const evFin = ev.detalle.fechaFin ? new Date(ev.detalle.fechaFin).setHours(23,59,59,999) : 
                       (evInicio !== null && ev.detalle.fechaInicio ? new Date(ev.detalle.fechaInicio).setHours(23,59,59,999) : null);
 
         if (this.fechaInicioFiltro || this.fechaFinFiltro) {
           if (evInicio === null || evFin === null) {
-            matchFecha = false; // Si estamos filtrando por fecha y el evento no tiene fechas, lo ocultamos
+            matchFecha = false;
           } else {
             const filtroInicio = this.fechaInicioFiltro ? new Date(this.fechaInicioFiltro).setHours(0,0,0,0) : -Infinity;
             const filtroFin = this.fechaFinFiltro ? new Date(this.fechaFinFiltro).setHours(23,59,59,999) : Infinity;
-
-            // Condición de solapamiento: (El evento empieza antes de que acabe el filtro) Y (El evento acaba después de que empiece el filtro)
             matchFecha = (evInicio <= filtroFin && evFin >= filtroInicio);
           }
         }
       } else if (this.fechaInicioFiltro || this.fechaFinFiltro) {
-         // Si se filtra por fecha pero el evento no tiene detalles
          matchFecha = false;
       }
       
@@ -103,4 +136,3 @@ export class HomeComponent implements OnInit {
     });
   }
 }
-

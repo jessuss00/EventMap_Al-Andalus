@@ -21,6 +21,7 @@ create table usuario(
     dni char(9),
     edad int,
     admin boolean default false,
+    favoritos_ids text,
     constraint chk_edad check (edad BETWEEN 17 AND 60)
 );
 

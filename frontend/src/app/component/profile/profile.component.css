@@ -94,7 +94,7 @@ label {
 .btn-save:hover:not(:disabled) {
   background-color: var(--primary-dark, #143a22);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(26, 77, 46, 0.2);
+  box-shadow: 0 4px 6px rgba(15, 76, 58, 0.15);
 }
 
 .btn-save:disabled {
@@ -171,3 +171,144 @@ label {
     padding: 16px;
   }
 }
+
+/* Sección de Favoritos */
+.favorites-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.section-header h3 {
+  font-family: var(--font-heading, 'Outfit', sans-serif);
+  color: var(--primary-color, #1A4D2E);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.heart-icon {
+  color: #ff4757;
+}
+
+.no-favorites {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8fafc;
+  border-radius: 12px;
+  color: #64748b;
+}
+
+.btn-discover {
+  margin-top: 15px;
+  background: var(--primary-color, #1A4D2E);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-discover:hover {
+  background: #143a22;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.favorite-card {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease;
+}
+
+.favorite-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+.fav-image {
+  width: 100px;
+  min-width: 100px;
+}
+
+.fav-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fav-info {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fav-info h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1e293b;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.fav-type {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-transform: uppercase;
+  margin: 5px 0;
+}
+
+.fav-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-view {
+  background: #f1f5f9;
+  color: #1e293b;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  flex-grow: 1;
+}
+
+.btn-remove {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-remove:hover {
+  background: #fecaca;
+  transform: scale(1.05);
+}
