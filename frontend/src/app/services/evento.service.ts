@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Evento } from '../models/evento.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventoService {
 
-  private apiUrl = 'http://localhost:8081/api/eventos'; 
+  private apiUrl = `${environment.apiUrl}/api/eventos`; 
   
   private searchSubject = new BehaviorSubject<string>('');
   searchQuery$ = this.searchSubject.asObservable();
@@ -40,7 +41,7 @@ export class EventoService {
   }
 
   // Métodos para favoritos
-  private favoritosUrl = 'http://localhost:8081/api/favoritos';
+  private favoritosUrl = `${environment.apiUrl}/api/favoritos`;
 
   toggleFavorito(eventoId: number): Observable<void> {
     return this.http.post<void>(`${this.favoritosUrl}/${eventoId}`, {});
