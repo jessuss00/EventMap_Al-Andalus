@@ -27,7 +27,8 @@
 
     <nav class="nav-links" [class.mobile-open]="isMobileMenuOpen">
       <a [routerLink]="getHomeRoute()" class="nav-link" (click)="isMobileMenuOpen = false">Inicio</a>
-      
+      <a *ngIf="isLoggedIn$ | async" routerLink="/favorites" class="nav-link" (click)="isMobileMenuOpen = false">Eventos Destacados</a>
+
       <ng-container *ngIf="(isLoggedIn$ | async) === false">
         <a routerLink="/login" class="btn-login" (click)="isMobileMenuOpen = false">Iniciar Sesión</a>
         <a routerLink="/register" class="btn-register" (click)="isMobileMenuOpen = false">Registrarse</a>
@@ -44,7 +45,6 @@
           
           <div class="dropdown-menu" *ngIf="isDropdownOpen">
             <a class="dropdown-item" (click)="editProfile()">Editar Perfil</a>
-            <a class="dropdown-item" (click)="viewFavorites()">Eventos Favoritos</a>
             <a class="dropdown-item logout-item" (click)="logout()">Cerrar Sesión</a>
           </div>
         </div>

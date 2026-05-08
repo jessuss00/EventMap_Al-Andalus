@@ -175,10 +175,10 @@ export class EventDetailComponent implements OnInit {
 
   deleteComentario(comentario: Comentario): void {
     if (!confirm('¿Eliminar este comentario?')) return;
-    this.comentarioService.delete(comentario.id.usuario, comentario.id.evento).subscribe({
+    this.comentarioService.delete(comentario.usuario.id, comentario.evento.id).subscribe({
       next: () => {
         this.comentarios = this.comentarios.filter(c =>
-          !(c.id.usuario === comentario.id.usuario && c.id.evento === comentario.id.evento)
+          !(c.usuario.id === comentario.usuario.id && c.evento.id === comentario.evento.id)
         );
       },
       error: (err: any) => {
@@ -189,7 +189,12 @@ export class EventDetailComponent implements OnInit {
 
   canDeleteComentario(comentario: Comentario): boolean {
     if (this.isAdmin) return true;
-    return this.isLoggedIn && this.currentUserId === comentario.id.usuario;
+    return this.isLoggedIn && this.currentUserId === comentario.usuario.id;
+  }
+
+  get hasUserCommented(): boolean {
+    if (!this.isLoggedIn || !this.currentUserId) return false;
+    return this.comentarios.some(c => c.usuario.id === this.currentUserId);
   }
 
   getAverageRating(): number {

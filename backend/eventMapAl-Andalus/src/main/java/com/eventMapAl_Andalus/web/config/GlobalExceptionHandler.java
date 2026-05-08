@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
         
     @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolation(org.springframework.dao.DataIntegrityViolationException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El email o DNI proporcionado ya se encuentra registrado.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("El email proporcionado ya se encuentra registrado.");
     }
         
     @ExceptionHandler(Exception.class)

@@ -25,8 +25,7 @@ export class ProfileComponent implements OnInit {
       nombre: ['', Validators.required],
       apellidos: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      edad: ['', [Validators.required, Validators.min(0)]],
-      dni: ['', Validators.required]
+      edad: ['', [Validators.required, Validators.min(0)]]
     });
   }
 

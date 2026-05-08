@@ -36,9 +36,15 @@
     <div class="filter-group date-range-group">
       <label>Filtrar por fechas:</label>
       <div class="date-inputs">
-        <input type="date" id="fechaInicioFilter" [(ngModel)]="fechaInicioFiltro" title="Desde fecha" />
+        <div class="date-field">
+          <span class="date-label">Desde:</span>
+          <input type="date" id="fechaInicioFilter" [(ngModel)]="fechaInicioFiltro" title="Desde fecha" />
+        </div>
         <span class="date-separator">-</span>
-        <input type="date" id="fechaFinFilter" [(ngModel)]="fechaFinFiltro" title="Hasta fecha" />
+        <div class="date-field">
+          <span class="date-label">Hasta:</span>
+          <input type="date" id="fechaFinFilter" [(ngModel)]="fechaFinFiltro" title="Hasta fecha" />
+        </div>
       </div>
     </div>
 

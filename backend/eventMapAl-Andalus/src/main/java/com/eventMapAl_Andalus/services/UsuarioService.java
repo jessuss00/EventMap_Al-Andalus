@@ -41,7 +41,6 @@ public class UsuarioService implements UserDetailsService {
         usuario.setNombre(request.getNombre());
         usuario.setApellidos(request.getApellidos());
         usuario.setEmail(request.getEmail());
-        usuario.setDni(request.getDni());
         usuario.setEdad(request.getEdad());
         
         usuario.setPassword(new BCryptPasswordEncoder().encode(request.getPassword1()));
@@ -58,7 +57,6 @@ public class UsuarioService implements UserDetailsService {
         if (usuario != null) {
             usuario.setNombre(usuarioData.getNombre());
             usuario.setApellidos(usuarioData.getApellidos());
-            usuario.setDni(usuarioData.getDni());
             usuario.setEdad(usuarioData.getEdad());
             return usuarioRepository.save(usuario);
         }

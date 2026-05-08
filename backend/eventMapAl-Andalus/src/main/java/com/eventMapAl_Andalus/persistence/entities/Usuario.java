@@ -21,7 +21,6 @@ public class Usuario {
     private String apellidos;
     private String email;
     private Integer edad; 
-    private String dni;
     
     @Column(name = "contraseña")
     private String password; 

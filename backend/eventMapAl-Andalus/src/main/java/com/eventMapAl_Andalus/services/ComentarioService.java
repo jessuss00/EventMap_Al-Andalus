@@ -41,6 +41,12 @@ public class ComentarioService {
         if (calificacion < 0 || calificacion > 5) {
             throw new ComentarioException("La calificación debe estar entre 0 y 5");
         }
+
+        ComentarioId id = new ComentarioId(usuarioId, eventoId);
+        if (comentarioRepository.existsById(id)) {
+            throw new ComentarioException("Ya has publicado un comentario en este evento.");
+        }
+
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ComentarioException("Usuario no encontrado"));
         Evento evento = eventoRepository.findById(eventoId)

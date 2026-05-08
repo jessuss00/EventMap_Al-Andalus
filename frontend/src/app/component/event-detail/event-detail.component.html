@@ -164,8 +164,8 @@
           </div>
         </div>
 
-        <!-- Formulario: sólo si está logueado -->
-        <div class="comentario-form-wrapper" *ngIf="isLoggedIn; else loginPrompt">
+        <!-- Formulario: sólo si está logueado y no ha comentado -->
+        <div class="comentario-form-wrapper" *ngIf="isLoggedIn && !hasUserCommented; else loginOrCommentedPrompt">
           <h3>Deja tu opinión</h3>
           <div class="star-selector" aria-label="Calificación">
             <span *ngFor="let i of [1,2,3,4,5]" class="star star-selectable" [class.star-filled]="getActiveStars(i)"
@@ -187,14 +187,22 @@
             <span *ngIf="enviandoComentario">Publicando...</span>
           </button>
         </div>
-        <ng-template #loginPrompt>
-          <div class="login-prompt">
+        <ng-template #loginOrCommentedPrompt>
+          <div class="login-prompt" *ngIf="!isLoggedIn">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
             <span><a routerLink="/login">Inicia sesión</a> para dejar un comentario.</span>
+          </div>
+          <div class="login-prompt" *ngIf="isLoggedIn && hasUserCommented">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <span>Ya has dejado una opinión sobre este evento. ¡Gracias por participar!</span>
           </div>
         </ng-template>
 

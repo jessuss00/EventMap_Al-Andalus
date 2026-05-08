@@ -18,7 +18,6 @@ create table usuario(
     apellidos varchar(100),
     email varchar(100),
     contraseña varchar(255) not null,
-    dni char(9),
     edad int,
     admin boolean default false,
     favoritos_ids text,
@@ -73,9 +72,9 @@ INSERT INTO municipio (nombre, provincia) VALUES
 ('Málaga', 'Málaga'),     
 ('Sevilla', 'Sevilla');   
 
-INSERT INTO usuario (nombre, apellidos, email, contraseña, dni, edad, admin) 
-VALUES ('jesus', 'madro','jesusmadro17@gmail.com','$2a$10$ZbHUeGgB2hgd3bOD.f8DXuH2uVq7iTfhrvpFFPXL8VFx70lyz.1ta','48122271s',20, true),
-		('Javier', 'canijo','frujim@gmail.com','$2a$10$Xy2d8ioIDVy/tXnfwW1X8eteUY8t5jJNTxFZnSieKdZGlBYpWkeOS','1234567A',19,false);
+INSERT INTO usuario (nombre, apellidos, email, contraseña, edad, admin) 
+VALUES ('jesus', 'madro','jesusmadro17@gmail.com','$2a$10$ZbHUeGgB2hgd3bOD.f8DXuH2uVq7iTfhrvpFFPXL8VFx70lyz.1ta',20, true),
+		('Javier', 'canijo','frujim@gmail.com','$2a$10$Xy2d8ioIDVy/tXnfwW1X8eteUY8t5jJNTxFZnSieKdZGlBYpWkeOS',19,false);
 
 -- Eventos reasignados a los IDs 1-8
 INSERT INTO evento (nombre, tipo, descripcion_simple, confirmada, municipio_id, imagen) VALUES 

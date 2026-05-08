@@ -432,7 +432,9 @@
     border-radius: 50px;
     padding: 0 15px;
     position: absolute;
-    right: 60px;
+    right: 65px;
+    top: 50%;
+    transform: translateY(-50%);
     background: var(--primary-color);
     z-index: 1002;
   }
@@ -464,6 +466,7 @@
   }
 
   .search-container.expanded .search-box {
-    width: calc(100vw - 120px);
+    width: calc(100vw - 150px);
+    right: 65px;
   }
 }
