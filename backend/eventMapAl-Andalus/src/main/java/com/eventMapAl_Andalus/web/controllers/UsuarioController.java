@@ -21,9 +21,8 @@ public class UsuarioController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Usuario usuario = usuarioService.findByEmail(email);
-        
+
         if (usuario != null) {
-            // Limpiamos el password por seguridad antes de enviarlo
             usuario.setPassword(null);
             return ResponseEntity.ok(usuario);
         }
@@ -35,7 +34,7 @@ public class UsuarioController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
         Usuario updated = usuarioService.update(email, usuarioData);
-        
+
         if (updated != null) {
             updated.setPassword(null);
             return ResponseEntity.ok(updated);

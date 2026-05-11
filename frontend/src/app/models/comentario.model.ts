@@ -1,8 +1,6 @@
 export interface Comentario {
-  id: {
-    usuario: number;
-    evento: number;
-  };
+  id: number;
+
   usuario: {
     id: number;
     nombre: string;

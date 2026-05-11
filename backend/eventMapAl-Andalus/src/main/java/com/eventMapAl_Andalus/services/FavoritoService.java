@@ -24,10 +24,12 @@ public class FavoritoService {
 
     public void toggleFavorito(String email, Integer eventoId) {
         Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
-        if (usuario == null) return;
+        if (usuario == null)
+            return;
 
         String favoritos = usuario.getFavoritosIds();
-        if (favoritos == null) favoritos = "";
+        if (favoritos == null)
+            favoritos = "";
 
         List<String> ids = new ArrayList<>(Arrays.asList(favoritos.split(",")));
         ids.removeIf(String::isEmpty);
@@ -54,9 +56,9 @@ public class FavoritoService {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
 
-        if (ids.isEmpty()) return new ArrayList<>();
+        if (ids.isEmpty())
+            return new ArrayList<>();
 
-        // Fetch events by IDs
         return ids.stream()
                 .map(id -> eventoRepository.findById(id).orElse(null))
                 .filter(e -> e != null)
@@ -65,7 +67,8 @@ public class FavoritoService {
 
     public boolean isFavorito(String email, Integer eventoId) {
         Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
-        if (usuario == null || usuario.getFavoritosIds() == null) return false;
+        if (usuario == null || usuario.getFavoritosIds() == null)
+            return false;
 
         List<String> ids = Arrays.asList(usuario.getFavoritosIds().split(","));
         return ids.contains(String.valueOf(eventoId));

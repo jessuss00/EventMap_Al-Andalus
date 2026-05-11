@@ -1,7 +1,6 @@
 package com.eventMapAl_Andalus.services;
 
 import com.eventMapAl_Andalus.persistence.entities.Comentario;
-import com.eventMapAl_Andalus.persistence.entities.ComentarioId;
 import com.eventMapAl_Andalus.persistence.entities.Evento;
 import com.eventMapAl_Andalus.persistence.entities.Usuario;
 import com.eventMapAl_Andalus.persistence.repositories.ComentarioRepository;
@@ -42,11 +41,6 @@ public class ComentarioService {
             throw new ComentarioException("La calificación debe estar entre 0 y 5");
         }
 
-        ComentarioId id = new ComentarioId(usuarioId, eventoId);
-        if (comentarioRepository.existsById(id)) {
-            throw new ComentarioException("Ya has publicado un comentario en este evento.");
-        }
-
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ComentarioException("Usuario no encontrado"));
         Evento evento = eventoRepository.findById(eventoId)
@@ -61,23 +55,14 @@ public class ComentarioService {
         return comentarioRepository.save(comentario);
     }
 
-    /**
-     * Deletes a comment.
-     * @param requestingUserId  The ID of the user making the request.
-     * @param isAdmin           Whether the requesting user is an admin.
-     * @param comentarioUsuarioId The ID of the user who owns the comment.
-     * @param eventoId          The event ID.
-     */
     @Transactional
-    public void delete(int requestingUserId, boolean isAdmin, int comentarioUsuarioId, int eventoId) {
-        ComentarioId id = new ComentarioId(comentarioUsuarioId, eventoId);
-        if (!comentarioRepository.existsById(id)) {
-            throw new ComentarioNotFoundException("Comentario no encontrado");
-        }
-        // Only owner or admin can delete
-        if (!isAdmin && requestingUserId != comentarioUsuarioId) {
+    public void delete(int requestingUserId, boolean isAdmin, int comentarioId) {
+        Comentario comentario = comentarioRepository.findById(comentarioId)
+                .orElseThrow(() -> new ComentarioNotFoundException("Comentario no encontrado"));
+
+        if (!isAdmin && requestingUserId != comentario.getUsuario().getId()) {
             throw new ComentarioException("No tienes permiso para eliminar este comentario");
         }
-        comentarioRepository.deleteById(id);
+        comentarioRepository.deleteById(comentarioId);
     }
 }

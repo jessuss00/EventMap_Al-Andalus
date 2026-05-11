@@ -69,7 +69,6 @@
           alt="{{ ev.nombre }}">
         <span class="event-type-badge" [ngClass]="'badge-' + ev.tipo.toLowerCase()">{{ ev.tipo }}</span>
 
-        <!-- Estrella limpia en la esquina de la imagen (Recuadro rojo superior) -->
         <button *ngIf="isLoggedIn" class="btn-star-clean" [class.active]="esFavorito(ev.id)"
           (click)="toggleFavorito(ev.id); $event.stopPropagation()" title="Añadir a favoritos">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" stroke-width="2"

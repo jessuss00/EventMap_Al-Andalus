@@ -30,7 +30,6 @@
   font-size: 1.1rem;
 }
 
-/* Loading state */
 .loader-container {
   text-align: center;
   padding: 60px;
@@ -56,7 +55,6 @@
   }
 }
 
-/* Empty state */
 .no-favorites {
   text-align: center;
   background: white;
@@ -94,7 +92,6 @@
   box-shadow: 0 5px 15px rgba(26, 77, 46, 0.3);
 }
 
-/* Favorites Grid */
 .favorites-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

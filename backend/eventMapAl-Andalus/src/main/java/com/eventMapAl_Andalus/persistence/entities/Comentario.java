@@ -12,18 +12,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Comentario {
 
-    @EmbeddedId
-    private ComentarioId id = new ComentarioId();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     @ManyToOne
-    @MapsId("usuario")
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne
-    @MapsId("evento")
     @JoinColumn(name = "evento_id")
     private Evento evento;
+
 
     @Column(name = "texto", columnDefinition = "TEXT")
     private String texto;

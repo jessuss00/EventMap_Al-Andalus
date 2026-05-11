@@ -587,7 +587,6 @@ h1 {
   }
 }
 
-/* ======================== COMENTARIOS ======================== */
 .comentarios-section {
   margin-top: 40px;
   padding-top: 35px;
@@ -638,7 +637,6 @@ h1 {
   color: #475569;
 }
 
-/* Stars */
 .star {
   color: #d1d5db;
   font-size: 1.3rem;
@@ -676,7 +674,6 @@ h1 {
   font-weight: 600;
 }
 
-/* Form */
 .comentario-form-wrapper {
   background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
   border: 1px solid #a7f3d0;
@@ -758,7 +755,6 @@ h1 {
   cursor: not-allowed;
 }
 
-/* Login prompt */
 .login-prompt {
   display: flex;
   align-items: center;
@@ -782,7 +778,6 @@ h1 {
   text-decoration: underline;
 }
 
-/* Cards */
 .comentarios-lista {
   display: flex;
   flex-direction: column;
@@ -934,7 +929,6 @@ h1 {
 }
 
 
-/* Empty / loading states */
 .no-comentarios {
   text-align: center;
   padding: 40px 20px;

@@ -21,7 +21,8 @@ export class ComentarioService {
     return this.http.post<Comentario>(this.apiUrl, payload);
   }
 
-  delete(comentarioUsuarioId: number, eventoId: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${comentarioUsuarioId}/${eventoId}`);
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
 }

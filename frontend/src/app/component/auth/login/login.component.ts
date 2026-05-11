@@ -27,7 +27,6 @@ export class LoginComponent {
         } else if (res && res.token) {
           localStorage.setItem('token', res.token);
         }
-        // Marcar manualmente la sesión (opcional si es simulado)
         localStorage.setItem('isLoggedIn', 'true');
         this.router.navigate(['/home']);
       },

@@ -19,7 +19,7 @@ public class Evento {
     private int id;
 
     private String nombre;
-    
+
     public enum TipoEvento {
         Cultural, Nocturno, Deportivo
     }
@@ -32,19 +32,17 @@ public class Evento {
     private String descripcionSimple;
 
     private boolean confirmada;
-    
-    // Añadimos el campo imagen
+
     @Column(columnDefinition = "TEXT")
     private String imagen;
 
     @ManyToOne
-    @JoinColumn(name = "municipio_id") 
+    @JoinColumn(name = "municipio_id")
     private Municipio municipio;
 
-    // Relación 1 a 1 con el detalle
     @OneToOne(mappedBy = "evento", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private DetalleEvento detalle;
-    
+
     @OneToMany(mappedBy = "evento")
     @JsonIgnore
     private List<Comentario> comentarios;

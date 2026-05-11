@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   isAdmin: boolean = false;
   isLoggedIn: boolean = false;
   favoritosIds: Set<number> = new Set();
-  
+
   // Filtros
   filtroTipo: string = 'Todos';
   fechaInicioFiltro: string = '';
@@ -31,13 +31,12 @@ export class HomeComponent implements OnInit {
   constructor(
     private eventoService: EventoService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isAdmin = this.authService.isAdmin();
     this.isLoggedIn = this.authService.isLoggedIn();
-    
-    // Escuchar cambios en la búsqueda global del header
+
     this.eventoService.searchQuery$.subscribe(query => {
       this.searchText = query;
     });
@@ -100,37 +99,37 @@ export class HomeComponent implements OnInit {
     return this.eventos.filter(ev => {
       // Filtro por Tipo
       const matchTipo = this.filtroTipo === 'Todos' || ev.tipo === this.filtroTipo;
-      
+
       // Filtro por Provincia
-      const matchProvincia = this.filtroProvincia === 'Todas' || 
-                             (ev.municipio && ev.municipio.provincia.toLowerCase() === this.filtroProvincia.toLowerCase());
+      const matchProvincia = this.filtroProvincia === 'Todas' ||
+        (ev.municipio && ev.municipio.provincia.toLowerCase() === this.filtroProvincia.toLowerCase());
 
       // Filtro por Rango de Fechas
       let matchFecha = true;
       if (ev.detalle) {
-        const evInicio = ev.detalle.fechaInicio ? new Date(ev.detalle.fechaInicio).setHours(0,0,0,0) : null;
-        const evFin = ev.detalle.fechaFin ? new Date(ev.detalle.fechaFin).setHours(23,59,59,999) : 
-                      (evInicio !== null && ev.detalle.fechaInicio ? new Date(ev.detalle.fechaInicio).setHours(23,59,59,999) : null);
+        const evInicio = ev.detalle.fechaInicio ? new Date(ev.detalle.fechaInicio).setHours(0, 0, 0, 0) : null;
+        const evFin = ev.detalle.fechaFin ? new Date(ev.detalle.fechaFin).setHours(23, 59, 59, 999) :
+          (evInicio !== null && ev.detalle.fechaInicio ? new Date(ev.detalle.fechaInicio).setHours(23, 59, 59, 999) : null);
 
         if (this.fechaInicioFiltro || this.fechaFinFiltro) {
           if (evInicio === null || evFin === null) {
             matchFecha = false;
           } else {
-            const filtroInicio = this.fechaInicioFiltro ? new Date(this.fechaInicioFiltro).setHours(0,0,0,0) : -Infinity;
-            const filtroFin = this.fechaFinFiltro ? new Date(this.fechaFinFiltro).setHours(23,59,59,999) : Infinity;
+            const filtroInicio = this.fechaInicioFiltro ? new Date(this.fechaInicioFiltro).setHours(0, 0, 0, 0) : -Infinity;
+            const filtroFin = this.fechaFinFiltro ? new Date(this.fechaFinFiltro).setHours(23, 59, 59, 999) : Infinity;
             matchFecha = (evInicio <= filtroFin && evFin >= filtroInicio);
           }
         }
       } else if (this.fechaInicioFiltro || this.fechaFinFiltro) {
-         matchFecha = false;
+        matchFecha = false;
       }
-      
+
       // Filtro por Nombre, Provincia o Municipio (Buscador Global)
       const query = this.searchText.toLowerCase();
-      const matchSearch = !this.searchText || 
-                          ev.nombre.toLowerCase().includes(query) ||
-                          (ev.municipio?.provincia?.toLowerCase().includes(query) ?? false) ||
-                          (ev.municipio?.nombre?.toLowerCase().includes(query) ?? false);
+      const matchSearch = !this.searchText ||
+        ev.nombre.toLowerCase().includes(query) ||
+        (ev.municipio?.provincia?.toLowerCase().includes(query) ?? false) ||
+        (ev.municipio?.nombre?.toLowerCase().includes(query) ?? false);
 
       return matchTipo && matchFecha && matchProvincia && matchSearch;
     });

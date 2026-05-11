@@ -23,47 +23,46 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    
+
     @Autowired
     private JwtFilter jwtFilter;
-    
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/auth/refresh").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/eventos", "/api/eventos/**").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/api/municipios", "/api/municipios/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/eventos").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/api/eventos/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE, "/api/eventos/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/comentarios", "/comentarios/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/comentarios").authenticated()
-                    .requestMatchers(HttpMethod.DELETE, "/comentarios/**").authenticated()
-                    .requestMatchers("/error").permitAll()
-                    .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-            
+                .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/refresh").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/eventos", "/api/eventos/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/municipios", "/api/municipios/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/eventos").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/eventos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/eventos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/comentarios", "/comentarios/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/comentarios").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/comentarios/**").authenticated()
+                        .requestMatchers("/error").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
-    
+
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> allowedOrigins = Arrays.asList(
-            "http://localhost:4200", 
-            "https://event-map-al-andalus-m7g6.vercel.app"
+                "http://localhost:4200", // Tira del local
+                "https://event-map-al-andalus-m7g6.vercel.app" // Tira del Vercel
         );
         configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -75,9 +74,9 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-    
+
     @Bean
     AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
-    }   
+    }
 }

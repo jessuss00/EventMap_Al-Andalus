@@ -16,7 +16,7 @@ export class LandingComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private eventoService = inject(EventoService);
 
-  targetDate: Date = new Date(); 
+  targetDate: Date = new Date();
   nextEventName: string = 'Próximo Evento';
   months: string = '00';
   days: string = '00';
@@ -53,7 +53,6 @@ export class LandingComponent implements OnInit, OnDestroy {
           this.nextEventName = futureEvents[0].nombre;
           if (!this.timer) this.startCountdown();
         } else {
-          // Fallback
           this.targetDate = new Date(now.getFullYear(), now.getMonth() + 2, now.getDate());
           if (!this.timer) this.startCountdown();
         }
@@ -79,7 +78,7 @@ export class LandingComponent implements OnInit, OnDestroy {
     this.updateCountdown();
     this.timer = setInterval(() => {
       this.updateCountdown();
-    }, 1000); // Actualizamos cada segundo para que la transición sea instantánea al llegar a cero
+    }, 1000);
   }
 
   private updateCountdown(): void {

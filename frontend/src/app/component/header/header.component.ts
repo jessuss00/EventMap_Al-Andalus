@@ -26,7 +26,6 @@ export class HeaderComponent {
   toggleSearch(): void {
     this.isSearchExpanded = !this.isSearchExpanded;
     if (this.isSearchExpanded) {
-      // Pequeño delay para asegurar que el input sea visible antes de darle foco
       setTimeout(() => {
         const input = document.querySelector('.search-input') as HTMLInputElement;
         if (input) input.focus();
@@ -42,8 +41,7 @@ export class HeaderComponent {
 
   onSearchChange(): void {
     this.eventoService.setSearchQuery(this.searchText);
-    
-    // Si no estamos en el home, redirigir allí para ver resultados
+
     if (this.router.url !== '/home') {
       this.router.navigate(['/home']);
     }

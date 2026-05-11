@@ -19,10 +19,10 @@ export class AddEventComponent implements OnInit {
   municipios: Municipio[] = [];
   loading: boolean = false;
   error: string | null = null;
-  
+
   isEditMode: boolean = false;
   eventId: number | null = null;
-  
+
   tipos = ['Cultural', 'Nocturno', 'Deportivo'];
 
   constructor(
@@ -31,12 +31,12 @@ export class AddEventComponent implements OnInit {
     private municipioService: MunicipioService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initForm();
     this.loadMunicipios();
-    
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
@@ -56,7 +56,7 @@ export class AddEventComponent implements OnInit {
       imagen: ['', Validators.required],
       confirmada: [true],
       municipioId: ['', Validators.required],
-      
+
       // Info Detallada
       fechaInicio: [''],
       fechaFin: [''],
@@ -73,7 +73,7 @@ export class AddEventComponent implements OnInit {
       error: (err) => console.error('Error cargando municipios:', err)
     });
   }
-  
+
   loadEventData(id: number): void {
     this.loading = true;
     this.eventoService.getEventoById(id).subscribe({
@@ -115,15 +115,14 @@ export class AddEventComponent implements OnInit {
       this.eventForm.markAllAsTouched();
       return;
     }
-    
+
     this.loading = true;
     this.error = null;
-    
+
     const formValue = this.eventForm.value;
-    
-    // Buscar municipio completo para mandarlo (Spring Boot a veces requiere solo el ID en el objeto Municipio)
+
     const mId = Number(formValue.municipioId);
-    
+
     const newEvento: Evento = {
       id: this.eventId || 0,
       nombre: formValue.nombre,

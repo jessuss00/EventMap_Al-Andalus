@@ -9,8 +9,8 @@ import { environment } from '../../environments/environment';
 })
 export class EventoService {
 
-  private apiUrl = `${environment.apiUrl}/api/eventos`; 
-  
+  private apiUrl = `${environment.apiUrl}/api/eventos`;
+
   private searchSubject = new BehaviorSubject<string>('');
   searchQuery$ = this.searchSubject.asObservable();
 
@@ -40,7 +40,6 @@ export class EventoService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // Métodos para favoritos
   private favoritosUrl = `${environment.apiUrl}/api/favoritos`;
 
   toggleFavorito(eventoId: number): Observable<void> {

@@ -26,7 +26,6 @@ export class EventDetailComponent implements OnInit {
   currentUserId: number | null = null;
   isFavorito: boolean = false;
 
-  // Comentarios
   comentarios: Comentario[] = [];
   loadingComentarios: boolean = false;
   nuevoTexto: string = '';
@@ -42,7 +41,7 @@ export class EventDetailComponent implements OnInit {
     private comentarioService: ComentarioService,
     private sanitizer: DomSanitizer,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.isAdmin = this.authService.isAdmin();
@@ -96,11 +95,11 @@ export class EventDetailComponent implements OnInit {
         this.evento = data;
         if (this.evento && this.evento.detalle && this.evento.detalle.localizacionExacta) {
           let address = this.evento.detalle.localizacionExacta;
-          
+
           if (this.evento.municipio) {
             const municipio = this.evento.municipio.nombre;
             const provincia = this.evento.municipio.provincia;
-            
+
             if (!address.toLowerCase().includes(municipio.toLowerCase())) {
               address += `, ${municipio}`;
             }
@@ -108,7 +107,7 @@ export class EventDetailComponent implements OnInit {
               address += `, ${provincia}`;
             }
           }
-          
+
           if (!address.toLowerCase().includes('españa') && !address.toLowerCase().includes('spain')) {
             address += ', España';
           }
@@ -175,11 +174,9 @@ export class EventDetailComponent implements OnInit {
 
   deleteComentario(comentario: Comentario): void {
     if (!confirm('¿Eliminar este comentario?')) return;
-    this.comentarioService.delete(comentario.usuario.id, comentario.evento.id).subscribe({
+    this.comentarioService.delete(comentario.id).subscribe({
       next: () => {
-        this.comentarios = this.comentarios.filter(c =>
-          !(c.usuario.id === comentario.usuario.id && c.evento.id === comentario.evento.id)
-        );
+        this.comentarios = this.comentarios.filter(c => c.id !== comentario.id);
       },
       error: (err: any) => {
         alert(err.error || 'Error al eliminar el comentario.');
@@ -193,8 +190,7 @@ export class EventDetailComponent implements OnInit {
   }
 
   get hasUserCommented(): boolean {
-    if (!this.isLoggedIn || !this.currentUserId) return false;
-    return this.comentarios.some(c => c.usuario.id === this.currentUserId);
+    return false;
   }
 
   getAverageRating(): number {

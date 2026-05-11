@@ -16,7 +16,6 @@
   font-weight: 700;
 }
 
-/* Admin Zone */
 .admin-actions {
   margin-bottom: 30px;
   display: flex;
@@ -43,7 +42,6 @@
   box-shadow: 0 6px 20px rgba(26, 77, 46, 0.3);
 }
 
-/* Grid Layout */
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -78,7 +76,6 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* Image wrapper */
 .event-image-wrapper {
   position: relative;
   height: 240px;
@@ -117,8 +114,7 @@
   background: rgba(185, 28, 28, 0.85);
 }
 
-/*
-   ESTRELLA FAVORITOS  */
+/* ESTRELLA FAVORITOS  */
 
 .btn-star-clean {
   position: absolute !important;
@@ -148,7 +144,6 @@
   outline: none !important;
 }
 
-/* Aspecto por defecto */
 .btn-star-clean svg {
   fill: rgba(0, 0, 0, 0.4) !important;
   stroke: #ffffff !important;
@@ -159,13 +154,11 @@
   transition: none !important;
 }
 
-/* Aspecto Activo (Marcada/Amarilla) */
 .btn-star-clean.active svg {
   fill: #FFD700 !important;
   stroke: #FFD700 !important;
 }
 
-/* Event Info */
 .event-info {
   padding: 25px;
   flex-grow: 1;
@@ -216,7 +209,6 @@
   background-color: #065F46;
 }
 
-/* Filters */
 .filter-bar {
   background: white;
   padding: 25px 30px;

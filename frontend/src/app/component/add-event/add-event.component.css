@@ -155,7 +155,6 @@ textarea {
   border-left: 4px solid #c53030;
 }
 
-/* Checkbox Styling */
 .checkbox-group {
   justify-content: center;
   padding-top: 15px;
@@ -192,11 +191,11 @@ textarea {
   transition: all 0.2s;
 }
 
-.checkbox-container:hover input ~ .checkmark {
+.checkbox-container:hover input~.checkmark {
   background-color: #ccc;
 }
 
-.checkbox-container input:checked ~ .checkmark {
+.checkbox-container input:checked~.checkmark {
   background-color: #009688;
 }
 
@@ -206,7 +205,7 @@ textarea {
   display: none;
 }
 
-.checkbox-container input:checked ~ .checkmark:after {
+.checkbox-container input:checked~.checkmark:after {
   display: block;
 }
 
@@ -264,7 +263,9 @@ textarea {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 768px) {
@@ -274,7 +275,7 @@ textarea {
 
   .form-card {
     padding: 30px 15px;
-    border-radius: 0; /* Full width on mobile looks more modern sometimes, or keep slight radius */
+    border-radius: 0;
     border-radius: 12px;
   }
 
@@ -296,7 +297,7 @@ textarea {
     grid-template-columns: 1fr;
     gap: 15px;
   }
-  
+
   .btn-submit {
     width: 100%;
   }

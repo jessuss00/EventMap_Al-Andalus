@@ -54,9 +54,8 @@ public class ComentarioController {
         return ResponseEntity.ok(comentario);
     }
 
-    @DeleteMapping("/{comentarioUsuarioId}/{eventoId}")
-    public ResponseEntity<Void> delete(@PathVariable int comentarioUsuarioId,
-                                       @PathVariable int eventoId,
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id,
                                        Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(401).build();
@@ -69,7 +68,8 @@ public class ComentarioController {
         boolean isAdmin = authentication.getAuthorities()
                 .contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
-        comentarioService.delete(requestingUser.getId(), isAdmin, comentarioUsuarioId, eventoId);
+        comentarioService.delete(requestingUser.getId(), isAdmin, id);
         return ResponseEntity.noContent().build();
     }
+
 }
