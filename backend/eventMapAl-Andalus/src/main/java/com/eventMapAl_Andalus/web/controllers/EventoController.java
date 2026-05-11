@@ -4,6 +4,7 @@ import com.eventMapAl_Andalus.persistence.entities.Evento;
 import com.eventMapAl_Andalus.services.EventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/eventos")
+@CrossOrigin(origins = "*")
 public class EventoController {
 
     @Autowired
@@ -40,7 +42,8 @@ public class EventoController {
     }
 
     @org.springframework.web.bind.annotation.PutMapping("/{id}")
-    public ResponseEntity<Evento> updateEvento(@PathVariable("id") int id, @org.springframework.web.bind.annotation.RequestBody Evento evento) {
+    public ResponseEntity<Evento> updateEvento(@PathVariable("id") int id,
+            @org.springframework.web.bind.annotation.RequestBody Evento evento) {
         Evento updatedEvento = eventoService.updateEvento(id, evento);
         if (updatedEvento != null) {
             return ResponseEntity.ok(updatedEvento);

@@ -11,6 +11,7 @@ import com.eventMapAl_Andalus.services.UsuarioService;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     @Autowired
