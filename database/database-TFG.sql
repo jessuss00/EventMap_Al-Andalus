@@ -13,7 +13,7 @@ create table usuario(
     nombre varchar(100),
     apellidos varchar(100),
     email varchar(100),
-    contraseña varchar(255) not null,
+    contrasena varchar(255) not null,
     edad int,
     admin boolean default false,
     favoritos_ids text,
