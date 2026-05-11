@@ -62,7 +62,9 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         List<String> allowedOrigins = Arrays.asList(
                 "http://localhost:4200", // Tira del local
-                "https://event-map-al-andalus-m7g6.vercel.app" // Tira del Vercel
+                "https://event-map-al-andalus-m7g6.vercel.app",
+                "http://217.160.32.30",
+                "http://217.160.32.30:8081" // <--- AÑADE ESTO (Tu web) // Tira del Vercel
         );
         configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
