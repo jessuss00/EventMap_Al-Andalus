@@ -15,7 +15,7 @@ RUN chmod +x mvnw
 RUN ./mvnw clean install -DskipTests
 
 # Exponemos el puerto (tu app usa el 8081 según application.properties)
-EXPOSE 8080
+EXPOSE 8081
 
 # Comando para arrancar apuntando al jar generado
 CMD ["java", "-jar", "target/eventMapAl-Andalus-0.0.1-SNAPSHOT.jar"]

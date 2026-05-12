@@ -64,7 +64,7 @@ public class SecurityConfig {
                 "http://localhost:4200", // Tira del local
                 "https://event-map-al-andalus-m7g6.vercel.app",
                 "http://217.160.32.30",
-                "http://217.160.32.30:8080" // <--- AÑADE ESTO (Tu web) // Tira del Vercel
+                "http://217.160.32.30:8081" // <--- AÑADE ESTO (Tu web) // Tira del Vercel
         );
         configuration.setAllowedOrigins(allowedOrigins);
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
