@@ -1,4 +1,6 @@
 drop database if exists TFG;
+SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 create database TFG;
 use TFG;
 
