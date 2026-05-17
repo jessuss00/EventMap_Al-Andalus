@@ -44,9 +44,9 @@ export class RegisterComponent {
         } else if (err.error && err.error.message) {
           this.errorMessage = err.error.message;
         } else if (err.status === 500) {
-          this.errorMessage = 'El servidor rechazó el registro. Es probable que el email ya esté en uso.';
+          this.errorMessage = 'Ese correo ya tiene cuenta asociada';
         } else {
-          this.errorMessage = 'No se ha podido registrar el usuario. Comprueba si el email ya existe en el sistema o si los datos son inválidos.';
+          this.errorMessage = 'Ese correo ya tiene cuenta asociada';
         }
       }
     });

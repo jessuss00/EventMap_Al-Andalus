@@ -37,6 +37,10 @@ public class UsuarioService implements UserDetailsService {
     }
     
     public Usuario create(RegisterRequest request) {
+        if (this.usuarioRepository.findByEmail(request.getEmail()).isPresent()) {
+            throw new RuntimeException("Ese correo ya tiene cuenta asociada");
+        }
+        
         Usuario usuario = new Usuario();
         usuario.setNombre(request.getNombre());
         usuario.setApellidos(request.getApellidos());

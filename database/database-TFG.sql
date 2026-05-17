@@ -18,8 +18,7 @@ create table usuario(
     contrasena varchar(255) not null,
     edad int,
     admin boolean default false,
-    favoritos_ids text,
-    constraint chk_edad check (edad BETWEEN 17 AND 60)
+    favoritos_ids text
 );
 
 create table evento(
